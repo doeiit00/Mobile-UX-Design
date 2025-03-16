@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  background-color: rgb(241, 240, 232);
+  font-family: "Inter", sans-serif;
+}
+
+/*https://colorhunt.co/palette/89a8b2b3c8cfe5e1daf1f0e8*/
