@@ -25,11 +25,11 @@ export class HomePageComponent {
 
     if(this.authService.getToken()) {
       params.token = this.authService.getToken();
-      console.log('Get Token:', params.token);
+      //console.log('Get Token:', params.token);
     }
 this.http.get('https://www2.hs-esslingen.de/~melcher/map/chat/api/?request=logout', { headers, params }).subscribe(
   (res: any) => {
-    console.log('Hello World');
+    console.log('See u later:', params.token);
     this.authService.clearToken();
   },
   (error: any) => {
