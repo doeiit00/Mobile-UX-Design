@@ -9,5 +9,19 @@
     <div class="search-bar-wrapper">
       <input type="text" placeholder="Search chats..." class="search-box" />
     </div>
+
+    <mat-list class="chat-list">
+          <div>
+            @if (chats.length > 0) {
+              @for(chat of chats; track chat.chatid) {
+                <mat-list-item routerLink='/chat/{{chat.chatid}}'>
+                  <h3>{{chat.chatname}}</h3>
+                </mat-list-item>
+              }
+            } @else {
+              <h3>No chats found</h3>
+            }
+          </div>
+    </mat-list>
   </mat-drawer>
 </mat-drawer-container>

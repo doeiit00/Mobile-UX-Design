@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://www2.hs-esslingen.de/~melcher/map/chat/api/",
+    "target": "https://www2.hs-esslingen.de/~melcher/map/chat/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
