@@ -48,7 +48,7 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}?request=deregister`, { headers, params });
   }
 
-  getMessages(token: string, fromid: string, chatid?: string): Observable<any> {
+  getMessages(token: string, fromid: number, chatid?: number): Observable<any> {
     const headers = this.getCasualHeader();
     const params: any = { token, fromid };
     if (chatid) {

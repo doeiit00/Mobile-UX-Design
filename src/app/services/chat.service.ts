@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {ApiService} from './api.service';
 import {TokenService} from './token.service';
@@ -9,6 +9,7 @@ import { Chat } from '../interface/chat';
 })
 export class ChatService {
 token: string | null = '';
+public chatSelected: EventEmitter<number> = new EventEmitter<number>();
 
 constructor(private readonly apiService: ApiService, private tokenService: TokenService) {
   this.token = this.tokenService.getToken();
@@ -21,6 +22,7 @@ public async init() {
 }
 
 public chats: Chat[] = [];
+public selectedChatId: number | null = null;
 
 private startChatUpdate() {
   setInterval(() => {
@@ -55,8 +57,6 @@ private async updateChats() {
         chatid: chat.chatid,
         chatname: chat.chatname,
         role: chat.role,
-        reminders: [],
-        links: [],
         messages: [],
         lastMessageId: -1
       };
@@ -64,7 +64,16 @@ private async updateChats() {
     }
   }
 
-  getChats(): Observable<Chat[]> {
+  public getChats(): Observable<Chat[]> {
     return of(this.chats);
+  }
+
+  public selectChat(chatid: number): void {
+    this.selectedChatId = chatid;
+    this.chatSelected.emit(chatid); // Notify that a chat has been selected
+  }
+
+  public getSelectedChatId(): number | null {
+    return this.selectedChatId;
   }
 }
