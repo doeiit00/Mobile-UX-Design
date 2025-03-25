@@ -25,25 +25,35 @@
   padding: 1rem;
 }
 
-.message-incoming{
-  display: inline-block;
-  width: 20rem;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  font-size: 20px;
-  border-radius: 5px;
+.message-list li {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-incoming, .message-outgoing {
+  max-width: 60%;
+  padding: 0.7rem;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.message-incoming {
+  align-self: flex-start;
   background: #B3C8CF;
 }
 
-.message-outgoing{
-  display: inline-block;
-  position: relative;
-  float: right;
-  width: 20rem;
-  padding: 0.5rem;
-  font-size: 20px;
-  border-radius: 5px;
+.message-outgoing {
+  align-self: flex-end;
   background: #E5E1DA;
+}
+.message-incoming {
+  margin-top: 10px;
+}
+
+.message-outgoing {
+  margin-top: 10px
 }
 
 .chat-input {
@@ -51,6 +61,7 @@
   align-items: center;
   padding: 20px;
   height: 2.4rem;
+  border-radius: 5px;
   border-top: 1px solid #89A8B2;
   background: #89A8B2;
 }
