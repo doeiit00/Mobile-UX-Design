@@ -1,52 +1,30 @@
 import {Component, inject} from '@angular/core';
-import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router, RouterOutlet} from '@angular/router';
+import {TokenService} from '../../services/token.service';
+import {ApiService} from '../../services/api.service';
 import {FormsModule} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
 
 @Component({
   standalone: true,
   selector: 'app-login',
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    FormsModule
-  ],
+  imports:[FormsModule, RouterOutlet],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   router=inject(Router)
-
   userID: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private apiService: ApiService, private tokenService: TokenService) {}
 
   login() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache'
+    this.tokenService.clearToken();
+    this.apiService.login(this.userID, this.password).subscribe((res: any) => {
+      console.log('Login response:', res);
+      const token = res.token;
+      this.tokenService.setToken(token);
+      this.router.navigateByUrl("home");
     });
-
-    const params = {
-      userid: this.userID,
-      password: this.password,
-    }
-
-    this.authService.clearToken(); // Clear any existing token
-    //console.log('Token before login request:', this.authService.getToken());
-
-    this.http.get('https://www2.hs-esslingen.de/~melcher/map/chat/api/?request=login', { headers, params }).subscribe((res: any) => {
-      console.log('Res is:', res);
-      //console.log('Token is:', res.token);
-      const token = res.token; // Adjust this line based on the actual response structure
-      this.authService.setToken(token);
-      //console.log('Token saved:', token);
-    });
-
-    this.router.navigateByUrl("home")
   }
 }
