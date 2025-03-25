@@ -23,13 +23,20 @@ export class HomePageComponent {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const params: any = {};
 
-    if(this.token) {
-      params.token = this.token;
+    if(this.authService.getToken()) {
+      params.token = this.authService.getToken();
+      console.log('Get Token:', params.token);
     }
-
-    this.http.get('https://www2.hs-esslingen.de/~melcher/map/chat/api/?request=logout', { headers, params }).subscribe((res: any) => {
-      this.authService.clearToken();
-    });
+this.http.get('https://www2.hs-esslingen.de/~melcher/map/chat/api/?request=logout', { headers, params }).subscribe(
+  (res: any) => {
+    console.log('Hello World');
+    this.authService.clearToken();
+  },
+  (error: any) => {
+    this.authService.clearToken();
+    console.error('Error occurred:', error);
+  }
+);
 
     this.router.navigateByUrl("")
   }

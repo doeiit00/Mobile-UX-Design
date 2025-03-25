@@ -31,14 +31,15 @@ export class LoginComponent {
       password: this.password,
     }
 
-this.authService.setToken(''); // Clear any existing token
+    this.authService.clearToken(); // Clear any existing token
+    console.log('Token before login request:', this.authService.getToken());
 
     this.http.get('https://www2.hs-esslingen.de/~melcher/map/chat/api/?request=login', { headers, params }).subscribe((res: any) => {
-        console.log('Res is:', res);
-        console.log('Token is:', res.token);
-        const token = res.token; // Adjust this line based on the actual response structure
-        this.authService.setToken(token);
-        console.log('Token saved:', token);
+      console.log('Res is:', res);
+      console.log('Token is:', res.token);
+      const token = res.token; // Adjust this line based on the actual response structure
+      this.authService.setToken(token);
+      console.log('Token saved:', token);
     });
 
     this.router.navigateByUrl("home")
