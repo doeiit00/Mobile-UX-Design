@@ -5,12 +5,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {ApiService} from '../../services/api.service';
-import {TokenService} from '../../services/token.service';
+import {TokenService} from '../../services/token.service'
+import {ChatComponent} from '../chat/chat.component';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, ChatComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })

@@ -3,10 +3,7 @@ mat-toolbar{
 }
 
 .sidenav {
-  width: 20vw;
-  height: calc(100vh - 64px);
   border-radius: 0 !important;
-  position: relative;
   background: #E5E1DA;
 }
 
@@ -15,20 +12,22 @@ mat-toolbar{
 }
 
 .example-container {
-  width: 20vw;
+  width: auto;
   height: calc(100vh - 64px);
-  background: #E5E1DA;
+  /* The background property is added to clearly distinguish the borders between drawer and main
+     content */
+  background: #F1F0E8;
 }
 
 .search-bar-wrapper {
-  display: flex;            /* Use Flexbox for centering */
-  justify-content: center;  /* Center horizontally */
-  align-items: flex-start;  /* Align the search bar at the top vertically */
-  height: 100%;             /* Ensure the wrapper takes full height */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
 }
 
 .search-box {
-  width: 15vw; /* Adjust the width to prevent overflow */
+  width: 15vw;
   padding: 1rem;
   border: 1px solid #F1F0E8 !important;
   font-size: 18px;
