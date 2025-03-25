@@ -2,11 +2,16 @@ import {Component, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthService} from '../../services/auth.service';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
