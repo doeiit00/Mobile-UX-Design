@@ -1,12 +1,11 @@
 import {Component, inject} from '@angular/core';
 import {Router} from '@angular/router';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthService} from '../../services/auth.service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
-
+import {ApiService} from '../../services/api.service';
+import {TokenService} from '../../services/token.service';
 
 @Component({
   standalone: true,
@@ -17,32 +16,24 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 })
 export class HomePageComponent {
   router=inject(Router)
-
   token: string | null = '';
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.token = this.authService.getToken();
+  constructor(private apiService: ApiService, private tokenService: TokenService) {
+    this.token = this.tokenService.getToken();
   }
 
   logout() {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const params: any = {};
-
-    if(this.authService.getToken()) {
-      params.token = this.authService.getToken();
-      console.log('Get Token:', params.token);
+    if (this.token) {
+      this.apiService.logout(this.token).subscribe(() => {
+          console.log('Logged out with token:', this.token);
+          this.tokenService.clearToken();
+          this.router.navigateByUrl("");
+        },
+        (error) => {
+          this.tokenService.clearToken();
+          console.error('Error logging out:', error);
+        }
+      );
     }
-this.http.get('https://www2.hs-esslingen.de/~melcher/map/chat/api/?request=logout', { headers, params }).subscribe(
-  (res: any) => {
-    console.log('Hello World');
-    this.authService.clearToken();
-  },
-  (error: any) => {
-    this.authService.clearToken();
-    console.error('Error occurred:', error);
-  }
-);
-
-    this.router.navigateByUrl("")
   }
 }
