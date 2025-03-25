@@ -22,8 +22,28 @@
 .message-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 1rem;
+}
+
+.message-incoming{
+  display: inline-block;
+  width: 20rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 20px;
+  border-radius: 5px;
   background: #B3C8CF;
+}
+
+.message-outgoing{
+  display: inline-block;
+  position: relative;
+  float: right;
+  width: 20rem;
+  padding: 0.5rem;
+  font-size: 20px;
+  border-radius: 5px;
+  background: #E5E1DA;
 }
 
 .chat-input {
