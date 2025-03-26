@@ -9,11 +9,12 @@ import {TokenService} from '../../services/token.service';
 import {ChatService} from '../../services/chat.service';
 import {MatList, MatListItem} from '@angular/material/list';
 import { Chat } from '../../interface/chat';
+import {ChatComponent} from '../chat/chat.component';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
