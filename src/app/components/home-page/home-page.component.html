@@ -1,7 +1,10 @@
 <mat-toolbar class="toolbar">
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>logout</mat-icon>
+  <button mat-icon-button>
+    <mat-icon>person_remove</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon (click)="logout()">logout</mat-icon>
   </button>
 </mat-toolbar>
 <mat-drawer-container class="example-container">
@@ -24,4 +27,7 @@
           </div>
     </mat-list>
   </mat-drawer>
+  <mat-drawer-content>
+    <app-chat></app-chat>
+  </mat-drawer-content>
 </mat-drawer-container>
