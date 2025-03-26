@@ -8,6 +8,8 @@ export const routes: Routes = [
   { path: 'register', title: 'Register', component: RegisterComponent},
 
   { path: 'home', title: 'Messenger', component: HomePageComponent }, //canActivate: [AuthGuard]
+  {path: 'chats', component: HomePageComponent},
+  {path: 'chat/:chatid', component: HomePageComponent},
   //add homepage
 ];
 

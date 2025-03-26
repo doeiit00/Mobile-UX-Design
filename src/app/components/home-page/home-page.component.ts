@@ -1,27 +1,33 @@
 import {Component, inject} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {ApiService} from '../../services/api.service';
-import {TokenService} from '../../services/token.service'
-import {ChatComponent} from '../chat/chat.component';
+import {TokenService} from '../../services/token.service';
+import {ChatService} from '../../services/chat.service';
+import {MatList, MatListItem} from '@angular/material/list';
+import { Chat } from '../../interface/chat';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, ChatComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
   router=inject(Router)
   token: string | null = '';
+  chats: any[] = [];
 
-  constructor(private apiService: ApiService, private tokenService: TokenService) {
-    this.token = this.tokenService.getToken();
-  }
+
+constructor(private apiService: ApiService, private tokenService: TokenService, private chatService: ChatService) {
+      this.token = this.tokenService.getToken();
+      this.chatService.getChats().subscribe((data: Chat[]) => { this.chats = data; });
+      this.chatService.init(); // Ensure init is called
+    }
 
   logout() {
     if (this.token) {
