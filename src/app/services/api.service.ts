@@ -11,15 +11,6 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  private getHeader() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Pragma': 'no-cache',
-      'Expires': '0',
-    });
-  }
-
-
   private getCasualHeader() {
     return new HttpHeaders({
       'Content-Type': 'application/json'
@@ -27,11 +18,7 @@ export class ApiService {
   }
 
   login(userID: string, password: string): Observable<any> {
-    const params = {
-      userid: userID,
-      password: password,
-      _t: new Date().getTime(),
-    };
+    const params = {userid: userID, password: password, _t: new Date().getTime(),};
     return this.http.get(`${this.baseUrl}?request=login`, { params });
   }
 
