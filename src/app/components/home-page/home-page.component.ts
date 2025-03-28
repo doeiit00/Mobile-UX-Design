@@ -24,10 +24,10 @@ export class HomePageComponent {
   chats: any[] = [];
 
 
-constructor(private apiService: ApiService, private tokenService: TokenService, private chatService: ChatService) {
+constructor(private apiService: ApiService, private tokenService: TokenService, public chatService: ChatService) {
       this.token = this.tokenService.getToken();
       this.chatService.getChats().subscribe((data: Chat[]) => { this.chats = data; });
-      this.chatService.init(); // Ensure init is called
+      this.chatService.init();
     }
 
   logout() {
