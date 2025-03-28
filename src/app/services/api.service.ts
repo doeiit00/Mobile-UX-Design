@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { sha256 } from 'crypto-hash';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,11 @@ export class ApiService {
   private getHeader() {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache'
+      'Pragma': 'no-cache',
+      'Expires': '0',
     });
   }
+
 
   private getCasualHeader() {
     return new HttpHeaders({
@@ -25,9 +27,12 @@ export class ApiService {
   }
 
   login(userID: string, password: string): Observable<any> {
-    const headers = this.getHeader();
-    const params = { userid: userID, password: password };
-    return this.http.get(`${this.baseUrl}?request=login`, { headers, params });
+    const params = {
+      userid: userID,
+      password: password,
+      _t: new Date().getTime(),
+    };
+    return this.http.get(`${this.baseUrl}?request=login`, { params });
   }
 
   logout(token: string): Observable<any> {
