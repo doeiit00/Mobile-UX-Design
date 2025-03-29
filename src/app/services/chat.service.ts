@@ -71,11 +71,31 @@ export class ChatService {
 
     public selectChat(chatid: number): void {
       this.selectedChatId = chatid;
-      this.chatSelected.emit(chatid); // Notify that a chat has been selected
+      this.chatSelected.emit(this.selectedChatId); // Notify that a chat has been selected
     }
 
     public getSelectedChatId(): number | null {
       return this.selectedChatId;
     }
+
+  public getSelectedChatName(): string {
+    // Prüfen, ob selectedChatId null ist
+    if (this.selectedChatId === null) {
+      return 'Kein Chat ausgewählt';
+    }
+
+    // Umwandeln von selectedChatId zu number (falls es ein string ist)
+    const chatIdNumber = typeof this.selectedChatId === 'string' ? Number(this.selectedChatId) : this.selectedChatId;
+
+    // Überprüfen, ob chatIdNumber eine gültige Zahl ist
+    if (isNaN(chatIdNumber)) {
+      return 'Ungültige Chat-ID';
+    }
+
+    // Suchen des Chats anhand der chatid
+    const chat = this.chats.find(c => Number(c.chatid) === chatIdNumber);
+
+    return chat ? chat.chatname : 'Kein Chat gefunden';
+  }
 
 }
