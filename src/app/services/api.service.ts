@@ -109,4 +109,9 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}?request=leavechat`, { headers, params });
   }
 
+  postMessage(token: string, text?: string, photo?: string, position?: string, chatid?: number): Observable<any> {
+    const headers = this.getCasualHeader();
+    const body: any = { request: "postmessage", token, text, photo, position, chatid };
+    return this.http.post(`${this.baseUrl}/`, body, { headers });
+    }
 }

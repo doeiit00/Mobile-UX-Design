@@ -22,10 +22,10 @@
       </li>
     </ul>
   </div>
-  <div class="chat-input">
-    <input type="text" class="message-input" placeholder="Type your message here">
+  <form class="chat-input" (ngSubmit)="sendMessage()">
+    <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="text" name="text">
     <button mat-icon-button class="send-button">
       <mat-icon>send</mat-icon>
     </button>
-  </div>
+  </form>
 </div>
