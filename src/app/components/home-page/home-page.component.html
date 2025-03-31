@@ -1,7 +1,7 @@
 <mat-toolbar class="toolbar">
   <span class="example-spacer"></span>
   <button mat-icon-button>
-    <mat-icon>person_remove</mat-icon>
+    <mat-icon (click)="deregister()">person_remove</mat-icon>
   </button>
   <button mat-icon-button>
     <mat-icon (click)="logout()">logout</mat-icon>
@@ -17,7 +17,7 @@
           <div>
             @if (chats.length > 0) {
               @for(chat of chats; track chat.chatid) {
-                <mat-list-item routerLink='/chat/{{chat.chatid}}'>
+                <mat-list-item routerLink='/chat/{{chat.chatid}}' (click)="this.chatService.selectChat(chat.chatid)">
                   <h3>{{chat.chatname}}</h3>
                 </mat-list-item>
               }

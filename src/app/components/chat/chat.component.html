@@ -1,37 +1,24 @@
 <div class="chat">
-  <div class="chat-header">Chat Name</div>
+  <div class="chat-header">{{ selectedChatName }}</div>
   <div class="chat-window">
     <ul class="message-list">
       <li class="message-item">
-        <div class="message-incoming">
-          Hello World!
-        </div>
+        <mat-list class="message-list">
+          <div>
+            @if (message.length > 0) {
+              @for(message of message; track message.id) {
+                <div class="message-incoming">
+                  <p>{{message.usernick}}</p>
+                  <p>{{message.text}}</p>
+                  <p>{{message.time}}</p>
+                </div>
 
-        <div class="message-incoming">
-          test
-        </div>
-
-        <div class="message-outgoing">
-          LOL
-        </div>
-
-        <div class="message-incoming">
-          Yay
-        </div>
-
-        <div class="message-incoming">
-          Meow
-        </div>
-
-        <div class="message-outgoing">
-          1234567890
-        </div>
-
-        <div class="message-outgoing">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda commodi consequatur cupiditate debitis ea excepturi facilis fuga hic id nam quidem, tempore, totam. Atque dignissimos fuga qui saepe ut!
-        </div>
-
-
+              }
+            } @else {
+              <h3>No messages found</h3>
+            }
+          </div>
+        </mat-list>
       </li>
     </ul>
   </div>
