@@ -6,8 +6,12 @@
         <mat-list class="message-list">
           <div>
             @if (message.length > 0) {
-              @for(message of message; track message.messageid) {
-                <div class="message-incoming"><p>{{message.text}}</p></div>
+              @for(message of message; track message.id) {
+                <div class="message-incoming">
+                  <p>{{message.usernick}}</p>
+                  <p>{{message.text}}</p>
+                  <p>{{message.time}}</p>
+                </div>
 
               }
             } @else {

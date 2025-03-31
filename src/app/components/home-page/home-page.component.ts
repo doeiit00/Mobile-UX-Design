@@ -44,4 +44,19 @@ constructor(private apiService: ApiService, private tokenService: TokenService, 
       );
     }
   }
+
+  deregister() {
+    if (this.token) {
+      this.apiService.deregister(this.token).subscribe(() => {
+          console.log('Deregistered with token:', this.token);
+          this.tokenService.clearToken();
+          this.router.navigateByUrl("");
+        },
+        (error) => {
+          this.tokenService.clearToken();
+          console.error('Error deregistering:', error);
+        }
+      );
+    }
+  }
 }

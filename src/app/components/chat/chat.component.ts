@@ -22,7 +22,7 @@ import {ChatService} from '../../services/chat.service';
 })
 export class ChatComponent {
   token: string | null = '';
-  message: any[] = [];
+  message: Message[] = [];
   selectedChatName: string | null = '';
 
   constructor(private apiService: ApiService, private tokenService: TokenService, private messageService: MessagesService, private chatService: ChatService) {
@@ -30,5 +30,8 @@ export class ChatComponent {
     this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data; });
     this.messageService.init(); // Ensure init is called
     this.selectedChatName = this.chatService.getSelectedChatName();
+    console.log(this.selectedChatName);
+
+    this.chatService.chatSelected.subscribe(chatid => {this.selectedChatName = this.chatService.getSelectedChatName();});
   }
 }

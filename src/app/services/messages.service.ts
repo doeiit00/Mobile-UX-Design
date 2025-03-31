@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import {ApiService} from './api.service';
-import {TokenService} from './token.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiService } from './api.service';
+import { TokenService } from './token.service';
 import { Message } from '../interface/message';
 import { ChatService } from './chat.service';
 
@@ -9,7 +9,10 @@ import { ChatService } from './chat.service';
   providedIn: 'root'
 })
 export class MessagesService {
+  private messagesSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
+  public messages$: Observable<Message[]> = this.messagesSubject.asObservable();
   token: string | null = '';
+  private updateIntervalId: any = null;
 
   constructor(private readonly apiService: ApiService, private tokenService: TokenService, private chatService: ChatService) {
     this.token = this.tokenService.getToken();
@@ -22,62 +25,43 @@ export class MessagesService {
     if (chatid !== null) {
       this.updateMessages(chatid);
       this.startMessagesUpdate(chatid);
-      console.log('MessagesService initialized');
+      //console.log('MessagesService initialized with chatid:', chatid);
     } else {
-      console.error('No chat selected');
+      //console.error('No chat selected');
     }
   }
 
-  public Messages: Message[] = [];
-
   private startMessagesUpdate(chatid: number) {
-    setInterval(() => {
+    if (this.updateIntervalId) {
+      //console.log('Clearing previous interval:', this.updateIntervalId);
+      clearInterval(this.updateIntervalId);
+    }
+    //console.log('Starting new interval for chatid:', chatid);
+    this.updateIntervalId = setInterval(() => {
+      //console.log('Updating messages for chatid:', chatid);
       this.updateMessages(chatid);
     }, 5000);
   }
 
   private async updateMessages(chatid: number) {
     if (this.token && this.apiService.validateToken(this.token)) {
+      //console.log('Fetching messages for chatid:', chatid);
       this.apiService.getMessages(this.token, chatid).subscribe((res: any) => {
-        const newMessages = res.messages;
-
-        for (const newMessage of newMessages) {
-          this.updateMessage(newMessage);
-        }
+        const newMessages = res.messages.filter((message: Message) => message.chatid === chatid);
+        //console.log('Received messages for chatid', chatid, ':', newMessages);
+        this.messagesSubject.next(newMessages);
       });
     }
   }
 
-  private updateMessage(message: Message) {
-    const existingMessageIndex = this.Messages.findIndex(c => c.id === message.id);
-    if (existingMessageIndex !== -1) {
-      this.Messages[existingMessageIndex] = {
-        ...this.Messages[existingMessageIndex],
-        text: message.text,
-        userid: message.userid,
-      };
-    } else {
-      // Add new chat
-      const newMessage = {
-        id: message.id,
-        userid: message.userid,
-        time: message.time,
-        chatid: message.chatid,
-        text: message.text,
-        photoid: message.photoid,
-        usernick: message.usernick,
-        userhash: message.userhash
-      };
-      this.Messages.push(newMessage);
-    }
-  }
-
   private loadMessages(chatid: number) {
+    //console.log('Loading messages for chatid:', chatid);
+    this.messagesSubject.next([]);
     this.updateMessages(chatid);
     this.startMessagesUpdate(chatid);
   }
 
   getMessages(): Observable<Message[]> {
-    return of(this.Messages);
+    return this.messages$;
   }
 }

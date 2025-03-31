@@ -72,10 +72,12 @@ export class ChatService {
     public selectChat(chatid: number): void {
       this.selectedChatId = chatid;
       this.chatSelected.emit(this.selectedChatId); // Notify that a chat has been selected
+      console.log("Chat selected: " + chatid);
     }
 
     public getSelectedChatId(): number | null {
       return this.selectedChatId;
+      //console.log("getChatId: " + this.selectedChatId);
     }
 
   public getSelectedChatName(): string {
