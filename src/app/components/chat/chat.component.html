@@ -1,18 +1,21 @@
 <div class="chat">
   <div class="chat-header">{{ selectedChatName }}</div>
-  <div class="chat-window">
+
+  <div class="chat-window" #chatWindow>
     <ul class="message-list">
       <li class="message-item">
         <mat-list class="message-list">
           <div>
             @if (message.length > 0) {
               @for(message of message; track message.id) {
-                <div class="message-incoming">
+                <div [ngClass]="{'message-incoming': message.usernick !== 'Dominik', 'message-outgoing': message.usernick === 'Dominik'}">
                   <p>{{message.usernick}}</p>
                   <p>{{message.text}}</p>
-                  <p>{{message.time}}</p>
+                  @if (photos[message.id]) {
+                    <img [src]="photos[message.id]" alt="Message Photo"/>
+                  }
+                  <p>{{formatMyDate(message.time) || message.time}}</p>
                 </div>
-
               }
             } @else {
               <h3>No messages found</h3>
@@ -22,8 +25,10 @@
       </li>
     </ul>
   </div>
+
+
   <form class="chat-input" (ngSubmit)="sendMessage()">
-    <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="text" name="text">
+    <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="text" name="text" autocomplete="off" />
     <button mat-icon-button class="send-button">
       <mat-icon>send</mat-icon>
     </button>

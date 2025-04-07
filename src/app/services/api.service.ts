@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { sha256 } from 'crypto-hash';
 
 @Injectable({
   providedIn: 'root'
@@ -18,31 +17,31 @@ export class ApiService {
   }
 
   login(userID: string, password: string): Observable<any> {
-    const params = {userid: userID, password: password, _t: new Date().getTime(),};
+    const params = {userid: userID, password: password, _t: new Date().getTime()};
     return this.http.get(`${this.baseUrl}?request=login`, { params });
   }
 
   logout(token: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token };
+    const params = { token, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=logout`, { headers, params });
   }
 
   register(userID: string, password: string, nickname: string, fullname: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { userid: userID, password: password, nickname: nickname, fullname: fullname };
+    const params = { userid: userID, password: password, nickname: nickname, fullname: fullname, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=register`, { headers, params });
   }
 
   deregister(token: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token };
+    const params = { token, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=deregister`, { headers, params });
   }
 
   getMessages(token: string, fromid: number, chatid?: number): Observable<any> {
     const headers = this.getCasualHeader();
-    const params: any = { token, fromid };
+    const params: any = { token, fromid, _t: new Date().getTime() };
     if (chatid) {
       params.chatid = chatid;
     }
@@ -51,67 +50,67 @@ export class ApiService {
 
   getPhoto(token: string, photoid: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token, photoid };
-    return this.http.get(`${this.baseUrl}?request=getphoto`, { headers, params });
+    const params = { token, photoid, _t: new Date().getTime() };
+    return this.http.get(`${this.baseUrl}?request=getphoto`, { headers, params, responseType: 'blob' });
   }
 
   validateToken(token: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token };
+    const params = { token, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=validatetoken`, { headers, params });
   }
 
   getProfiles(token: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token };
+    const params = { token, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=getprofiles`, { headers, params });
   }
 
   getChats(token: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token };
-    return this.http.get(`${this.baseUrl}?request=getchats`, { headers, params });
+    const params = { token, _t: new Date().getTime() };
+    return this.http.get(`${this.baseUrl}?request=getchats`, { headers, params});
   }
 
   createChat(token: string, chatname: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token, chatname };
+    const params = { token, chatname, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=createchat`, { headers, params });
   }
 
   deleteChat(token: string, chatid: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token, chatid };
+    const params = { token, chatid, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=deletechat`, { headers, params });
   }
 
   invite(token: string, chatid: string, invitedhash: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token, chatid, invitedhash };
+    const params = { token, chatid, invitedhash, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=invite`, { headers, params });
   }
 
   getInvites(token: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token };
+    const params = { token, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=getinvites`, { headers, params });
   }
 
   joinChat(token: string, chatid: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token, chatid };
+    const params = { token, chatid, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=joinchat`, { headers, params });
   }
 
   leaveChat(token: string, chatid: string): Observable<any> {
     const headers = this.getCasualHeader();
-    const params = { token, chatid };
+    const params = { token, chatid, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=leavechat`, { headers, params });
   }
 
   postMessage(token: string, text?: string, photo?: string, position?: string, chatid?: number): Observable<any> {
     const headers = this.getCasualHeader();
-    const body: any = { request: "postmessage", token, text, photo, position, chatid };
+    const body: any = { request: "postmessage", token, text, photo, position, chatid, _t: new Date().getTime() };
     return this.http.post(`${this.baseUrl}/`, body, { headers });
-    }
+  }
 }

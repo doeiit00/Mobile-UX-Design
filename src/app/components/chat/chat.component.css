@@ -25,6 +25,11 @@
   padding: 1rem;
 }
 
+.message-item {
+  display: flex;
+  justify-content: flex-start; /* Default alignment for incoming messages */
+}
+
 .message-list li {
   display: flex;
   flex-direction: column;
@@ -40,20 +45,15 @@
 }
 
 .message-incoming {
-  align-self: flex-start;
   background: #B3C8CF;
-}
-
-.message-outgoing {
-  align-self: flex-end;
-  background: #E5E1DA;
-}
-.message-incoming {
   margin-top: 10px;
 }
 
 .message-outgoing {
-  margin-top: 10px
+  justify-content: flex-end;
+  background: #E5E1DA;
+  margin-top: 10px;
+
 }
 
 .chat-input {

@@ -43,29 +43,27 @@ export class MessagesService {
     }, 5000);
   }
 
-  private async updateMessages(chatid: number) {
+  public async updateMessages(chatid: number) {
+    console.log('updateMessages called for chatid:', chatid); // Log statement
     if (this.token && this.apiService.validateToken(this.token)) {
-      // Hol dir die ID der letzten Nachricht
       const lastMessageId = this.messagesSubject.getValue().length > 0
         ? this.messagesSubject.getValue().slice(-1)[0].id
         : 0;
 
-      // Hol dir die Nachrichten von der API
       this.apiService.getMessages(this.token, lastMessageId, chatid).subscribe((res: any) => {
         const newMessages = res.messages.filter((message: Message) => message.chatid === chatid);
 
         if (newMessages.length > 0) {
-          // Hol die aktuellen Nachrichten
           const existingMessages = this.messagesSubject.getValue();
-
-          // Falls neue Nachrichten vorhanden sind, füge sie den bestehenden hinzu
           const combinedMessages = [
             ...existingMessages,
             ...newMessages.filter((message: Message) => !existingMessages.some((existing: Message) => existing.id === message.id))
           ];
 
-          // Setze die kombinierten Nachrichten, um die alten zu behalten und nur neue hinzuzufügen
+          //console.log('New messages:', newMessages); // Log new messages
           this.messagesSubject.next(combinedMessages);
+        } else {
+          //console.log('No new messages found');
         }
       });
     }
