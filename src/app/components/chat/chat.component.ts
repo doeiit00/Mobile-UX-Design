@@ -45,7 +45,7 @@ export class ChatComponent implements AfterViewChecked{
     private datePipe: DatePipe,
 ) {
     this.token = this.tokenService.getToken();
-    this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data; });
+    this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data; this.loadPhotos() });
     this.messageService.init(); // Ensure init is called
     this.selectedChatName = this.chatService.getSelectedChatName();
     console.log(this.selectedChatName);
@@ -53,15 +53,17 @@ export class ChatComponent implements AfterViewChecked{
     this.chatService.chatSelected.subscribe(chatid => {
       this.selectedChatName = this.chatService.getSelectedChatName();
     });
+  }
 
-    this.message.forEach((message) => {
-      if (this.token) {
-        this.apiService.getPhoto(this.token, message.photoid).subscribe(imageBlob => {
-          const imageUrl = URL.createObjectURL(imageBlob);
-          this.photos[message.id] = imageUrl;
-        });
-      }
-    });
+  private loadPhotos(): void {
+      this.message.forEach((message) => {
+        if (this.token && message.photoid) {
+          this.apiService.getPhoto(this.token, message.photoid).subscribe(imageBlob => {
+            const imageUrl = URL.createObjectURL(imageBlob);
+            this.photos[message.id] = imageUrl;
+          });
+        }
+      });
   }
 
   sendMessage() {
