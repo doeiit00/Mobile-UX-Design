@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, catchError, concatMap, EMPTY, from, Observable, tap} from 'rxjs';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
 import { Message } from '../interface/message';
@@ -13,6 +13,8 @@ export class MessagesService {
   public messages$: Observable<Message[]> = this.messagesSubject.asObservable();
   token: string | null = '';
   private updateIntervalId: any = null;
+
+  public photos: { [messageId: number]: string} = {};
 
   constructor(private readonly apiService: ApiService, private tokenService: TokenService, private chatService: ChatService) {
     this.token = this.tokenService.getToken();
@@ -42,14 +44,53 @@ export class MessagesService {
       this.updateMessages(chatid);
     }, 5000);
   }
-
-  private async updateMessages(chatid: number) {
+  public async updateMessages(chatid: number) {
+    console.log('updateMessages called for chatid:', chatid);
     if (this.token && this.apiService.validateToken(this.token)) {
-      //console.log('Fetching messages for chatid:', chatid);
-      this.apiService.getMessages(this.token, chatid).subscribe((res: any) => {
+      const lastMessageId = this.messagesSubject.getValue().length > 0
+        ? this.messagesSubject.getValue().slice(-1)[0].id
+        : 0;
+
+      this.apiService.getMessages(this.token, lastMessageId, chatid).subscribe((res: any) => {
         const newMessages = res.messages.filter((message: Message) => message.chatid === chatid);
-        //console.log('Received messages for chatid', chatid, ':', newMessages);
-        this.messagesSubject.next(newMessages);
+
+        if (newMessages.length > 0) {
+          const existingMessages = this.messagesSubject.getValue();
+          const combinedMessages = [
+            ...existingMessages,
+            ...newMessages.filter((message: Message) => !existingMessages.some((existing: Message) => existing.id === message.id))
+          ];
+
+          // Bilder sequentiell laden
+          from(newMessages as Message[])
+            .pipe(
+              concatMap((message: Message) => {
+                if (message.photoid) {
+                  return this.apiService.getPhoto(this.token!, message.photoid).pipe(
+                    tap(imageBlob => {
+                      const imageUrl = URL.createObjectURL(imageBlob);
+                      this.photos[message.id] = imageUrl;
+                      console.log(`Photo loaded for message ID: ${message.id} and photo ID: ${message.photoid}`);
+                      console.log('Message:', message);
+                    }),
+                    catchError(error => {
+                      console.error(`Failed to load photo for message ID: ${message.id}`, error);
+                      this.photos[message.id] = 'assets/fallback-image.png'; // Fallback-Bild
+                      return EMPTY;
+                    })
+                  );
+                }
+                return EMPTY;
+              })
+            )
+            .subscribe();
+
+          this.messagesSubject.next(combinedMessages);
+        } else {
+          //console.log('No new messages found');
+        }
+      }, error => {
+        console.error('Failed to fetch messages:', error);
       });
     }
   }
