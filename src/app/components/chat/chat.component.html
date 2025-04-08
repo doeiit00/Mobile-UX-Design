@@ -26,6 +26,16 @@
     </ul>
   </div>
 
+  @if (isCameraOverlayVisible){
+    <app-camera-overlay
+      (photoCaptured)="handlePhotoCaptured($event)"
+      (overlayClosed)="isCameraOverlayVisible = false">
+    </app-camera-overlay>
+  }
+
+  <button mat-icon-button (click)="openCameraOverlay()">
+    <mat-icon>camera_alt</mat-icon>
+  </button>
 
   <form class="chat-input" (ngSubmit)="sendMessage()">
     <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="text" name="text" autocomplete="off" />
