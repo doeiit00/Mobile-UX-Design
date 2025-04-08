@@ -107,7 +107,7 @@ export class ChatComponent implements AfterViewChecked{
   }
 
   onImageError(messageId: number) {
-    this.photos[messageId] = 'assets/fallback-image.png';
+    this.photos[messageId] = 'src/assets/fallback-image.png';
   }
 
   formatMyDate(date: string): string | null {
