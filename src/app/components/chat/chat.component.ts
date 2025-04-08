@@ -50,25 +50,15 @@ export class ChatComponent implements AfterViewChecked{
     private cameraService: CameraService,
 ) {
     this.token = this.tokenService.getToken();
-    this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data; this.loadPhotos() });
+    this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data});
     this.messageService.init(); // Ensure init is called
     this.selectedChatName = this.chatService.getSelectedChatName();
     console.log(this.selectedChatName);
+    this.photos = this.messageService.photos;
 
     this.chatService.chatSelected.subscribe(chatid => {
       this.selectedChatName = this.chatService.getSelectedChatName();
     });
-  }
-
-  private loadPhotos(): void {
-      this.message.forEach((message) => {
-        if (this.token && message.photoid) {
-          this.apiService.getPhoto(this.token, message.photoid).subscribe(imageBlob => {
-            const imageUrl = URL.createObjectURL(imageBlob);
-            this.photos[message.id] = imageUrl;
-          });
-        }
-      });
   }
 
   isCameraOverlayVisible: boolean = false;
@@ -105,7 +95,6 @@ export class ChatComponent implements AfterViewChecked{
     this.scrollToBottom();
   }
 
-
   private scrollToBottom(): void {
     try {
       this.chatWindow.nativeElement.scrollTo({
@@ -115,6 +104,10 @@ export class ChatComponent implements AfterViewChecked{
     } catch(err) {
       console.error('Scroll to bottom failed:', err);
     }
+  }
+
+  onImageError(messageId: number) {
+    this.photos[messageId] = 'assets/fallback-image.png';
   }
 
   formatMyDate(date: string): string | null {
