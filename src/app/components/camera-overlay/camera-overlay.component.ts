@@ -18,6 +18,8 @@ export class CameraOverlayComponent {
   @Output() photoCaptured = new EventEmitter<string>();
   @Output() overlayClosed = new EventEmitter<void>();
 
+  photoPreview: string | null = null;
+
   constructor(private cameraService: CameraService) {}
 
   ngAfterViewInit(): void {
@@ -25,9 +27,14 @@ export class CameraOverlayComponent {
   }
 
   capturePhoto(): void {
-    const photo = this.cameraService.capturePhoto(this.videoElement.nativeElement);
-    this.photoCaptured.emit(photo);
-    this.closeOverlay();
+    this.photoPreview = this.cameraService.capturePhoto(this.videoElement.nativeElement);
+  }
+
+  confirmPhoto(): void {
+    if (this.photoPreview) {
+      this.photoCaptured.emit(this.photoPreview);
+      this.closeOverlay();
+    }
   }
 
   closeOverlay(): void {

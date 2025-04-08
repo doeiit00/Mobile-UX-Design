@@ -26,3 +26,10 @@
   border: 1px solid #ccc;
   margin-bottom: 10px;
 }
+
+.photo-preview {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
