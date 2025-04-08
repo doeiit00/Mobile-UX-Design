@@ -9,6 +9,8 @@ import {Message} from '../../interface/message';
 import {ChatService} from '../../services/chat.service';
 import {FormsModule} from '@angular/forms';
 import {DatePipe, NgClass} from '@angular/common';
+import { CameraService } from '../../services/camera.service';
+import {CameraOverlayComponent} from '../camera-overlay/camera-overlay.component';
 
 @Component({
   standalone: true,
@@ -19,6 +21,7 @@ import {DatePipe, NgClass} from '@angular/common';
     MatList,
     FormsModule,
     NgClass,
+    CameraOverlayComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
@@ -26,6 +29,7 @@ import {DatePipe, NgClass} from '@angular/common';
 })
 export class ChatComponent implements AfterViewChecked{
   @ViewChild('chatWindow') private chatWindow!: ElementRef;
+  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
 
   message: Message[] = [];
   selectedChatName: string | null = '';
@@ -43,6 +47,7 @@ export class ChatComponent implements AfterViewChecked{
     private messageService: MessagesService,
     private chatService: ChatService,
     private datePipe: DatePipe,
+    private cameraService: CameraService,
 ) {
     this.token = this.tokenService.getToken();
     this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data});
@@ -56,6 +61,16 @@ export class ChatComponent implements AfterViewChecked{
     });
   }
 
+  isCameraOverlayVisible: boolean = false;
+
+  openCameraOverlay(): void {
+    this.isCameraOverlayVisible = true;
+  }
+
+  handlePhotoCaptured(photo: string): void {
+    this.photo = photo;
+  }
+
   sendMessage() {
     const chatid = this.chatService.getSelectedChatId();
     if (this.token && chatid !== null) {
@@ -65,6 +80,7 @@ export class ChatComponent implements AfterViewChecked{
           console.log('Post message response:', res);
           await this.messageService.updateMessages(chatid); // Update messages after sending
           this.text = ''; // Clear the input field after sending
+          this.photo = ''; // Foto nach dem Senden zurücksetzen
         },
         error: (err) => {
           console.error('Post message failure:', err);

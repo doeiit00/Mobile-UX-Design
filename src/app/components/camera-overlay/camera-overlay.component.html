@@ -1,0 +1,21 @@
+<div class="camera-overlay">
+  <div class="camera-container">
+    @if (!photoPreview) {
+      <video #videoElement class="camera-view"></video>
+      <button mat-icon-button (click)="capturePhoto()">
+        <mat-icon>camera</mat-icon>
+      </button>
+    }
+
+    @if (photoPreview) {
+      <img [src]="photoPreview" alt="Photo Preview" class="photo-preview" />
+      <button mat-icon-button (click)="confirmPhoto()">
+        <mat-icon>check</mat-icon>
+      </button>
+    }
+
+    <button mat-icon-button (click)="closeOverlay()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
