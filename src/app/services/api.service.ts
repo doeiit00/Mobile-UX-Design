@@ -51,7 +51,7 @@ export class ApiService {
   getPhoto(token: string, photoid: string): Observable<any> {
     const headers = this.getCasualHeader();
     const params = { token, photoid, _t: new Date().getTime() };
-    return this.http.get(`${this.baseUrl}?request=getphoto`, { headers, params, responseType: 'blob' });
+    return this.http.get(`${this.baseUrl}?request=getphoto`, { params, responseType: 'blob'});
   }
 
   validateToken(token: string): Observable<any> {
