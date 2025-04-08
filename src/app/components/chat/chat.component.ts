@@ -49,6 +49,7 @@ export class ChatComponent implements AfterViewChecked{
     this.messageService.init(); // Ensure init is called
     this.selectedChatName = this.chatService.getSelectedChatName();
     console.log(this.selectedChatName);
+    this.photos = this.messageService.photos;
 
     this.chatService.chatSelected.subscribe(chatid => {
       this.selectedChatName = this.chatService.getSelectedChatName();
@@ -75,7 +76,7 @@ export class ChatComponent implements AfterViewChecked{
   }
 
   ngAfterViewChecked() {
-    //this.scrollToBottom();
+    this.scrollToBottom();
   }
 
   private scrollToBottom(): void {

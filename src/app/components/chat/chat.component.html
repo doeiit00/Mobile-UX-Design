@@ -11,8 +11,9 @@
                 <div [ngClass]="{'message-incoming': message.usernick !== 'Dominik', 'message-outgoing': message.usernick === 'Dominik'}">
                   <p>{{message.usernick}}</p>
                   <p>{{message.text}}</p>
-                  @if (photos[message.id]) {
-                    <img [src]="photos[message.id]" alt="Message Photo" (error)="onImageError(message.id)" />
+                  @if (message.photoid) {
+
+                    <img [src]="photos[message.id]" alt="Failed to Load Image" (error)="onImageError(message.id)" />
 
                   }
                   <p>{{formatMyDate(message.time) || message.time}}</p>

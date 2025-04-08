@@ -70,7 +70,8 @@ export class MessagesService {
                     tap(imageBlob => {
                       const imageUrl = URL.createObjectURL(imageBlob);
                       this.photos[message.id] = imageUrl;
-                      console.log(`Photo loaded for message ID: ${message.id}`);
+                      console.log(`Photo loaded for message ID: ${message.id} and photo ID: ${message.photoid}`);
+                      console.log('Message:', message);
                     }),
                     catchError(error => {
                       console.error(`Failed to load photo for message ID: ${message.id}`, error);
