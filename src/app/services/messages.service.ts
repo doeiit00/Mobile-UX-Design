@@ -45,7 +45,7 @@ export class MessagesService {
     }, 5000);
   }
   public async updateMessages(chatid: number) {
-    console.log('updateMessages called for chatid:', chatid);
+    //console.log('updateMessages called for chatid:', chatid);
     if (this.token && this.apiService.validateToken(this.token)) {
       const lastMessageId = this.messagesSubject.getValue().length > 0
         ? this.messagesSubject.getValue().slice(-1)[0].id
@@ -64,23 +64,21 @@ export class MessagesService {
           // Bilder sequentiell laden
           from(newMessages as Message[])
             .pipe(
-              concatMap((message: Message) => {
+              concatMap(async (message: Message) => {
                 if (message.photoid) {
-                  return this.apiService.getPhoto(this.token!, message.photoid).pipe(
-                    tap(imageBlob => {
-                      const imageUrl = URL.createObjectURL(imageBlob);
-                      this.photos[message.id] = imageUrl;
-                      //console.log(`Photo loaded for message ID: ${message.id} and photo ID: ${message.photoid}`);
-                      //console.log('Message:', message);
-                    }),
-                    catchError(error => {
-                      console.error(`Failed to load photo for message ID: ${message.id}`, error);
-                      this.photos[message.id] = 'assets/fallback-image.png'; // Fallback-Bild
-                      return EMPTY;
-                    })
-                  );
+                  try {
+                    const imageBlob = await this.apiService.getPhoto(this.token!, message.photoid).toPromise();
+                    const imageUrl = URL.createObjectURL(imageBlob);
+                    this.photos[message.id] = imageUrl;
+                    //console.log(`Photo loaded for message ID: ${message.id} and photo ID: ${message.photoid}`);
+                    //console.log('Message:', message);
+                  } catch (error) {
+                    console.error(`Failed to load photo for message ID: ${message.id}`, error);
+                    this.photos[message.id] = 'assets/fallback-image.png'; // Fallback-Bild
+                  }
+                  // Verzögerung von 1 Sekunde
+                  await new Promise(resolve => setTimeout(resolve, 500));
                 }
-                return EMPTY;
               })
             )
             .subscribe();

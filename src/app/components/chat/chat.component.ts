@@ -92,7 +92,7 @@ export class ChatComponent implements AfterViewChecked{
   }
 
   ngAfterViewChecked() {
-    this.scrollToBottom();
+    //this.scrollToBottom();
   }
 
   private scrollToBottom(): void {
@@ -107,7 +107,7 @@ export class ChatComponent implements AfterViewChecked{
   }
 
   onImageError(messageId: number) {
-    this.photos[messageId] = 'src/assets/fallback-image.png';
+    console.log('Image error for message ID:', messageId);
   }
 
   formatMyDate(date: string): string | null {
