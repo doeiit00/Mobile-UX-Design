@@ -1,5 +1,17 @@
 <div class="chat">
-  <div class="chat-header">{{ selectedChatName }}</div>
+    <div class="chat-header">
+      <div>{{ selectedChatName }}</div>
+      <span class="leaveChat"></span>
+
+      <button mat-icon-button>
+        <mat-icon (click)="leaveChat()">not_interested</mat-icon>
+      </button>
+
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+    </div>
 
   <div class="chat-window" #chatWindow>
     <ul class="message-list">

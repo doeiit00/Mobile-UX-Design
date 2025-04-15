@@ -10,11 +10,12 @@ import {ChatService} from '../../services/chat.service';
 import {MatList, MatListItem} from '@angular/material/list';
 import { Chat } from '../../interface/chat';
 import {ChatComponent} from '../chat/chat.component';
+import {CreateChatComponent} from '../create-chat/create-chat.component';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent, CreateChatComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -23,11 +24,14 @@ export class HomePageComponent {
   token: string | null = '';
   chats: any[] = [];
 
+  chatid: number | null = null;
+
 
 constructor(private apiService: ApiService, private tokenService: TokenService, public chatService: ChatService) {
       this.token = this.tokenService.getToken();
       this.chatService.getChats().subscribe((data: Chat[]) => { this.chats = data; });
       this.chatService.init();
+      this.chatid = this.chatService.getSelectedChatId();
     }
 
   logout() {
@@ -58,5 +62,15 @@ constructor(private apiService: ApiService, private tokenService: TokenService, 
         }
       );
     }
+  }
+
+  isPopupVisible = false;
+
+  showPopup() {
+    this.isPopupVisible = true;
+  }
+
+  hidePopup() {
+    this.isPopupVisible = false;
   }
 }

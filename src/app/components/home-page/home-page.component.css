@@ -43,7 +43,6 @@ h3 {
 .chat-list{
   font-size: 18px;
   height: calc(200vh - 64px);
-  overflow-y: auto;
 }
 
 mat-list-item {
@@ -56,4 +55,19 @@ mat-list-item {
 mat-list-item h3 {
   margin: 10px;
   font-size: 16px;
+}
+
+.add-chat {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  width: 3em;
+  height: 3em;
+  background: rgb(157, 178, 191);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
 }

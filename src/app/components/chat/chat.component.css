@@ -121,3 +121,7 @@ button.mat-icon-button {
   border: 1px solid #ccc;
   margin-top: 5px;
 }
+
+.leaveChat{
+  flex: 1 1 auto;
+}

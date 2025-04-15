@@ -33,6 +33,7 @@ export class ChatComponent implements AfterViewChecked{
 
   message: Message[] = [];
   selectedChatName: string | null = '';
+  chatid: number | null = null;
 
   token: string | null = '';
   text: string = '';
@@ -55,6 +56,7 @@ export class ChatComponent implements AfterViewChecked{
     this.selectedChatName = this.chatService.getSelectedChatName();
     console.log(this.selectedChatName);
     this.photos = this.messageService.photos;
+    this.chatid = this.chatService.getSelectedChatId();
 
     this.chatService.chatSelected.subscribe(chatid => {
       this.selectedChatName = this.chatService.getSelectedChatName();
@@ -129,5 +131,21 @@ export class ChatComponent implements AfterViewChecked{
     }
 
     return this.datePipe.transform(parsedDate, 'dd.MM.yyyy, HH:mm:ss');
+  }
+
+  leaveChat() {
+    if (this.token && this.chatid !== null) {
+      this.apiService.leaveChat(this.token, this.chatid).subscribe({
+        next: (res: any) => {
+          console.log('Left chat:', this.chatid);
+          console.log('Leave chat response:', res);
+        },
+        error: (err) => {
+          console.error('Leave chat failure:', err);
+        }
+      });
+    } else {
+      console.error('Token is null or chatid is undefined');
+    }
   }
 }
