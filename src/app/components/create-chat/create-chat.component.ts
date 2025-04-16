@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {TokenService} from '../../services/token.service';
+import {ChatService} from '../../services/chat.service';
 import {FormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 
@@ -18,7 +19,7 @@ export class CreateChatComponent {
   token: string | null = '';
   text: string = '';
 
-  constructor(private apiService: ApiService, private tokenService: TokenService) {
+  constructor(private apiService: ApiService, private tokenService: TokenService, private chatService: ChatService) {
     this.token = this.tokenService.getToken();
   }
 
@@ -33,6 +34,7 @@ export class CreateChatComponent {
       this.apiService.createChat(this.token, this.text).subscribe(
         (response) => {
           console.log('Chat created:', response);
+          this.chatService.init();
           this.closePopup();
         },
         (error) => {

@@ -84,7 +84,7 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}?request=deletechat`, { headers, params });
   }
 
-  invite(token: string, chatid: string, invitedhash: string): Observable<any> {
+  invite(token: string, chatid: number, invitedhash: string): Observable<any> {
     const headers = this.getCasualHeader();
     const params = { token, chatid, invitedhash, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=invite`, { headers, params });

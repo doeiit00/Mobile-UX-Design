@@ -12,6 +12,10 @@ import {DatePipe, NgClass} from '@angular/common';
 import { CameraService } from '../../services/camera.service';
 import {CameraOverlayComponent} from '../camera-overlay/camera-overlay.component';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {Router} from '@angular/router';
+import {ProfilesService} from '../../services/profiles.service';
+import {Profile} from '../../interface/profile';
+import {Observable} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -44,19 +48,22 @@ export class ChatComponent implements AfterViewChecked{
   photo: string = '';
   position: string = '';
   photos: { [key: string]: string } = {};
-
+  profile: Profile[] = [];
 
   constructor(
     private apiService: ApiService,
     private tokenService: TokenService,
     private messageService: MessagesService,
     private chatService: ChatService,
+    private profilesService: ProfilesService,
     private datePipe: DatePipe,
     private cameraService: CameraService,
+    private router: Router
+
 ) {
     this.token = this.tokenService.getToken();
     this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data});
-    this.messageService.init(); // Ensure init is called
+    this.messageService.init();
     this.selectedChatName = this.chatService.getSelectedChatName();
     console.log(this.selectedChatName);
     this.photos = this.messageService.photos;
@@ -65,6 +72,21 @@ export class ChatComponent implements AfterViewChecked{
     this.chatService.chatSelected.subscribe(chatid => {
       this.selectedChatName = this.chatService.getSelectedChatName();
     });
+
+    this.profilesService.loadProfiles();
+
+    this.profilesService.getProfiles().subscribe((data: Profile[]) => {
+      this.profile = data;
+      console.log(data);
+    });
+
+    setTimeout(() => this.dataRequest(), 2000); // Verzögerung von 2 Sekunden
+
+  }
+
+
+  dataRequest() {
+    console.log('Data request initiated', this.profile);
   }
 
   isCameraOverlayVisible: boolean = false;
@@ -153,12 +175,39 @@ export class ChatComponent implements AfterViewChecked{
     }
   }
 
-  invite() {
-
+  invite(profile: any) {
+    if (this.token && this.chatid !== null) {
+      this.apiService.invite(this.token, this.chatid, profile.hash).subscribe({
+        next: (res: any) => {
+          console.log(`Profil ${profile.nickname} wurde eingeladen.`);
+          console.log('Invite response:', res);
+        },
+        error: (err) => {
+          console.error('Fehler beim Einladen des Profils:', err);
+        }
+      });
+    } else {
+      console.error('Token ist null oder chatid ist undefined');
+    }
   }
 
-  deleteChat() {
 
+  deleteChat() {
+    if (this.token && this.chatid !== null) {
+      this.apiService.deleteChat(this.token, this.chatid.toString()).subscribe({
+        next: async (res: any) => {
+          console.log('Deleted chat:', this.chatid);
+          console.log('Delete chat response:', res);
+          await this.router.navigate(['/home'], { replaceUrl: true });
+          window.location.reload();
+        },
+        error: (err) => {
+          console.error('Delete chat failure:', err);
+        }
+      });
+    } else {
+      console.error('Token is null or chatid is undefined');
+    }
   }
 
 }

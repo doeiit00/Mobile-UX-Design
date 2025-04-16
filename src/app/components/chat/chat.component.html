@@ -7,7 +7,7 @@
       </button>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="invite()">
+        <button mat-menu-item [matMenuTriggerFor]="profiles">
           <mat-icon>person_add</mat-icon>
           Person hinzufügen
         </button>
@@ -20,6 +20,19 @@
           Chat löschen
         </button>
       </mat-menu>
+
+      <mat-menu #profiles="matMenu">
+        @if (profile.length > 0) {
+          @for (profile of profile; track profile.hash) {
+            <button mat-menu-item (click)="invite(profile.hash)">
+              <mat-icon>person_add</mat-icon>
+              {{ profile.nickname }}
+            </button>
+          }
+        }
+      </mat-menu>
+
+
 
     </div>
 
