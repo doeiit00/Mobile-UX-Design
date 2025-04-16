@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {DatePipe, NgClass} from '@angular/common';
 import { CameraService } from '../../services/camera.service';
 import {CameraOverlayComponent} from '../camera-overlay/camera-overlay.component';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 
 @Component({
   standalone: true,
@@ -22,6 +23,9 @@ import {CameraOverlayComponent} from '../camera-overlay/camera-overlay.component
     FormsModule,
     NgClass,
     CameraOverlayComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
@@ -148,4 +152,13 @@ export class ChatComponent implements AfterViewChecked{
       console.error('Token is null or chatid is undefined');
     }
   }
+
+  invite() {
+
+  }
+
+  deleteChat() {
+
+  }
+
 }

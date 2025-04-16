@@ -1,15 +1,25 @@
 <div class="chat">
     <div class="chat-header">
-      <div>{{ selectedChatName }}</div>
-      <span class="leaveChat"></span>
+      <div class="chat-name">{{ selectedChatName }}</div>
 
-      <button mat-icon-button>
-        <mat-icon (click)="leaveChat()">not_interested</mat-icon>
-      </button>
-
-      <button mat-icon-button>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="more-button">
         <mat-icon>more_vert</mat-icon>
       </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="invite()">
+          <mat-icon>person_add</mat-icon>
+          Person hinzufügen
+        </button>
+        <button mat-menu-item (click)="leaveChat()">
+          <mat-icon>not_interested</mat-icon>
+          Chat verlassen
+        </button>
+        <button mat-menu-item (click)="deleteChat()">
+          <mat-icon>delete</mat-icon>
+          Chat löschen
+        </button>
+      </mat-menu>
 
     </div>
 

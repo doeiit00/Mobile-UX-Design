@@ -7,14 +7,25 @@
 .chat-header {
   background-color: #89A8B2;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 22px;
   font-size: 24px;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+.chat-name {
+  flex-grow: 1;
+}
+
+.more-button {
+  margin-left: auto;
+}
+
 .chat-window {
-  height: calc(100vh - 198px);
+  height: calc(100vh - 209px);
   overflow-y: scroll;
   background: #F1F0E8;
 }
