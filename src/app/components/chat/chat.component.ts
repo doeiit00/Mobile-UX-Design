@@ -175,11 +175,11 @@ export class ChatComponent implements AfterViewChecked{
     }
   }
 
-  invite(profile: any) {
+  invite(hash: string) {
     if (this.token && this.chatid !== null) {
-      this.apiService.invite(this.token, this.chatid, profile.hash).subscribe({
+      console.log('Inviting profile:', hash);
+      this.apiService.invite(this.token, this.chatid, hash).subscribe({
         next: (res: any) => {
-          console.log(`Profil ${profile.nickname} wurde eingeladen.`);
           console.log('Invite response:', res);
         },
         error: (err) => {

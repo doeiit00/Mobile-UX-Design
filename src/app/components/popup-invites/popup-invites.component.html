@@ -1,0 +1,9 @@
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+
+    this.apiService.getInvites(this.token).subscribe((data: any[]) => {
+    this.invite = data;
+    });
+
+  </div>
+</div>

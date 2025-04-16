@@ -20,19 +20,32 @@ import {CreateChatComponent} from '../create-chat/create-chat.component';
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
-  router=inject(Router)
+  router = inject(Router)
   token: string | null = '';
   chats: any[] = [];
+  invite: any[] = [];
 
   chatid: number | null = null;
 
 
-constructor(private apiService: ApiService, private tokenService: TokenService, public chatService: ChatService) {
-      this.token = this.tokenService.getToken();
-      this.chatService.getChats().subscribe((data: Chat[]) => { this.chats = data; });
-      this.chatService.init();
-      this.chatid = this.chatService.getSelectedChatId();
+  constructor(private apiService: ApiService, private tokenService: TokenService, public chatService: ChatService) {
+    this.token = this.tokenService.getToken();
+    this.chatService.getChats().subscribe((data: Chat[]) => {
+      this.chats = data;
+    });
+    this.chatService.init();
+    this.chatid = this.chatService.getSelectedChatId();
+    this.getInvites();
+  }
+
+  getInvites() {
+    if (this.token) {
+      this.apiService.getInvites(this.token).subscribe((data: any[]) => {
+        this.invite = data;
+      });
     }
+  }
+
 
   logout() {
     if (this.token) {
@@ -64,13 +77,23 @@ constructor(private apiService: ApiService, private tokenService: TokenService, 
     }
   }
 
-  isPopupVisible = false;
+  isPopupCreateChatVisible = false;
 
-  showPopup() {
-    this.isPopupVisible = true;
+  showPopupCreateChat() {
+    this.isPopupCreateChatVisible = true;
   }
 
-  hidePopup() {
-    this.isPopupVisible = false;
+  hidePopupCreateChat() {
+    this.isPopupCreateChatVisible = false;
+  }
+
+  isPopupInviteVisible = false;
+
+  showPopupInvites() {
+    this.isPopupInviteVisible = true;
+  }
+
+  hidePopupInvite() {
+    this.isPopupInviteVisible = false;
   }
 }

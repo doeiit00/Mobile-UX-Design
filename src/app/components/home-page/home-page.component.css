@@ -71,3 +71,7 @@ mat-list-item h3 {
   color: white;
   cursor: pointer;
 }
+
+.headline{
+  align-content: center;
+}

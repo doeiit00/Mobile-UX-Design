@@ -96,7 +96,7 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}?request=getinvites`, { headers, params });
   }
 
-  joinChat(token: string, chatid: string): Observable<any> {
+  joinChat(token: string, chatid: number): Observable<any> {
     const headers = this.getCasualHeader();
     const params = { token, chatid, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=joinchat`, { headers, params });
