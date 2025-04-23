@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 import {ProfilesService} from '../../services/profiles.service';
 import {Profile} from '../../interface/profile';
 import {Observable} from 'rxjs';
+import {UserService} from '../../services/user.service';
 
 @Component({
   standalone: true,
@@ -49,6 +50,7 @@ export class ChatComponent implements AfterViewChecked{
   position: string = '';
   photos: { [key: string]: string } = {};
   profile: Profile[] = [];
+  userID: string | null = '';
 
   constructor(
     private apiService: ApiService,
@@ -58,7 +60,8 @@ export class ChatComponent implements AfterViewChecked{
     private profilesService: ProfilesService,
     private datePipe: DatePipe,
     private cameraService: CameraService,
-    private router: Router
+    private router: Router,
+    private userService: UserService,
 
 ) {
     this.token = this.tokenService.getToken();
@@ -68,6 +71,7 @@ export class ChatComponent implements AfterViewChecked{
     console.log(this.selectedChatName);
     this.photos = this.messageService.photos;
     this.chatid = this.chatService.getSelectedChatId();
+    this.userID = this.userService.getUser();
 
     this.chatService.chatSelected.subscribe(chatid => {
       this.selectedChatName = this.chatService.getSelectedChatName();

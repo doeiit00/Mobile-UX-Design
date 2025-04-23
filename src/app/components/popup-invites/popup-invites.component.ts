@@ -10,7 +10,7 @@ import {ChatService} from '../../services/chat.service';
   selector: 'app-popup-invites',
     imports: [
         FormsModule,
-        MatIcon,
+        //MatIcon,
         ReactiveFormsModule
     ],
   templateUrl: './popup-invites.component.html',
@@ -18,10 +18,11 @@ import {ChatService} from '../../services/chat.service';
 })
 export class PopupInvitesComponent {
   token: string | null = '';
-  text: string = '';
+  invite: any[] = [];
 
-  constructor(private apiService: ApiService, private tokenService: TokenService, private chatService: ChatService) {
+  constructor(private apiService: ApiService, private tokenService: TokenService, ) {
     this.token = this.tokenService.getToken();
+    this.getInvites();
   }
 
   @Output() close = new EventEmitter<void>();
@@ -30,18 +31,11 @@ export class PopupInvitesComponent {
     this.close.emit();
   }
 
-  createChat() {
-    if (this.token && this.text) {
-      this.apiService.createChat(this.token, this.text).subscribe(
-        (response) => {
-          console.log('Chat created:', response);
-          this.chatService.init();
-          this.closePopup();
-        },
-        (error) => {
-          console.error('Error creating chat:', error);
-        }
-      );
+  getInvites() {
+    if (this.token) {
+      this.apiService.getInvites(this.token).subscribe((data: any[]) => {
+        this.invite = data;
+      });
     }
   }
 }

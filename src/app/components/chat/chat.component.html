@@ -24,10 +24,12 @@
       <mat-menu #profiles="matMenu">
         @if (profile.length > 0) {
           @for (profile of profile; track profile.hash) {
-            <button mat-menu-item (click)="invite(profile.hash)">
+            @if (profile.nickname !== 'Test' && profile.nickname !== 'test') {
+              <button mat-menu-item (click)="invite(profile.hash)">
               <mat-icon>person_add</mat-icon>
               {{ profile.nickname }}
-            </button>
+            </button>}
+
           }
         }
       </mat-menu>
@@ -43,7 +45,7 @@
           <div>
             @if (message.length > 0) {
               @for(message of message; track message.id) {
-                <div [ngClass]="{'message-incoming': message.usernick !== 'Dominik', 'message-outgoing': message.usernick === 'Dominik'}">
+                <div [ngClass]="{'message-incoming': message.userid !== userID, 'message-outgoing': message.userid === userID}">
                   <p>{{message.usernick}}</p>
                   <p>{{message.text}}</p>
                   @if (message.photoid) {

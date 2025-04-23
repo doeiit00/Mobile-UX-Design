@@ -7,4 +7,16 @@ export interface Message {
   photoid: string;
   usernick: string;
   userhash: string;
+  position?: {
+    coords?: {
+      latitude: number;
+      longitude: number;
+      altitude?: number;
+      accuracy?: number;
+      altitudeAccuracy?: number;
+      heading?: number | null;
+      speed?: number | null;
+    };
+    timestamp?: number;
+  };
 }

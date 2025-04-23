@@ -13,17 +13,11 @@
       <div>
         <h3>Chat List</h3>
       </div>
-      <div (click)="showPopupInvites()" class="invites">
-        <mat-icon>notifications_none</mat-icon>
-        @if (invite.length > 0) {
-          @for(invite of invite; track invite.chatid) {
-            <mat-list-item>
-              <h3>{{invite.chatname}}</h3>
-            </mat-list-item>
-            }
-        }
-      </div>
-      @if(isPopupInviteVisible){<app-create-chat (close)="hidePopupInvite()"/>}
+
+<!--      <div (click)="showPopupInvites()" class="invites">-->
+<!--        <mat-icon>notifications_none</mat-icon>-->
+<!--      </div>-->
+<!--      @if(isPopupInviteVisible){<app-popup-invites (close)="hidePopupInvite()"/>}-->
     </div>
 
     <mat-list class="chat-list">

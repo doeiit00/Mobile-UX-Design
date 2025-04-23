@@ -11,11 +11,12 @@ import {MatList, MatListItem} from '@angular/material/list';
 import { Chat } from '../../interface/chat';
 import {ChatComponent} from '../chat/chat.component';
 import {CreateChatComponent} from '../create-chat/create-chat.component';
+import {PopupInvitesComponent} from '../popup-invites/popup-invites.component';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent, CreateChatComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent, CreateChatComponent, /*PopupInvitesComponent*/],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -35,16 +36,16 @@ export class HomePageComponent {
     });
     this.chatService.init();
     this.chatid = this.chatService.getSelectedChatId();
-    this.getInvites();
+    //this.getInvites();
   }
 
-  getInvites() {
-    if (this.token) {
-      this.apiService.getInvites(this.token).subscribe((data: any[]) => {
-        this.invite = data;
-      });
-    }
-  }
+  // getInvites() {
+  //   if (this.token) {
+  //     this.apiService.getInvites(this.token).subscribe((data: any[]) => {
+  //       this.invite = data;
+  //     });
+  //   }
+  // }
 
 
   logout() {
@@ -81,6 +82,7 @@ export class HomePageComponent {
 
   showPopupCreateChat() {
     this.isPopupCreateChatVisible = true;
+    this.isPopupInviteVisible = false;
   }
 
   hidePopupCreateChat() {
@@ -91,6 +93,7 @@ export class HomePageComponent {
 
   showPopupInvites() {
     this.isPopupInviteVisible = true;
+    this.isPopupCreateChatVisible = false;
   }
 
   hidePopupInvite() {
