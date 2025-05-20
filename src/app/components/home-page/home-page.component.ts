@@ -53,7 +53,9 @@ export class HomePageComponent {
       this.apiService.logout(this.token).subscribe(() => {
           console.log('Logged out with token:', this.token);
           this.tokenService.clearToken();
-          this.router.navigateByUrl("");
+          this.router.navigateByUrl("").then(() => {
+            window.location.reload(); // Seite neu laden
+          });
         },
         (error) => {
           this.tokenService.clearToken();
