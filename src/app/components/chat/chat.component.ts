@@ -160,7 +160,7 @@ export class ChatComponent implements AfterViewChecked{
       return null;
     }
 
-    return this.datePipe.transform(parsedDate, 'dd.MM.yyyy, HH:mm:ss');
+    return this.datePipe.transform(parsedDate, 'HH:mm'); //'dd.MM.yyyy, HH:mm:ss'
   }
 
   leaveChat() {
@@ -195,7 +195,6 @@ export class ChatComponent implements AfterViewChecked{
     }
   }
 
-
   deleteChat() {
     if (this.token && this.chatid !== null) {
       this.apiService.deleteChat(this.token, this.chatid.toString()).subscribe({
@@ -212,6 +211,12 @@ export class ChatComponent implements AfterViewChecked{
     } else {
       console.error('Token is null or chatid is undefined');
     }
+  }
+
+  goBack() {
+    this.router.navigate(['/home'], { replaceUrl: true }).then(() => {
+      window.location.reload();
+    });
   }
 
 }
