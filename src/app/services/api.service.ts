@@ -84,7 +84,7 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}?request=deletechat`, { headers, params });
   }
 
-  invite(token: string, chatid: string, invitedhash: string): Observable<any> {
+  invite(token: string, chatid: number, invitedhash: string): Observable<any> {
     const headers = this.getCasualHeader();
     const params = { token, chatid, invitedhash, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=invite`, { headers, params });
@@ -96,13 +96,13 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}?request=getinvites`, { headers, params });
   }
 
-  joinChat(token: string, chatid: string): Observable<any> {
+  joinChat(token: string, chatid: number): Observable<any> {
     const headers = this.getCasualHeader();
     const params = { token, chatid, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=joinchat`, { headers, params });
   }
 
-  leaveChat(token: string, chatid: string): Observable<any> {
+  leaveChat(token: string, chatid: number): Observable<any> {
     const headers = this.getCasualHeader();
     const params = { token, chatid, _t: new Date().getTime() };
     return this.http.get(`${this.baseUrl}?request=leavechat`, { headers, params });

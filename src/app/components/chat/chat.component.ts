@@ -11,6 +11,12 @@ import {FormsModule} from '@angular/forms';
 import {DatePipe, NgClass} from '@angular/common';
 import { CameraService } from '../../services/camera.service';
 import {CameraOverlayComponent} from '../camera-overlay/camera-overlay.component';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {Router} from '@angular/router';
+import {ProfilesService} from '../../services/profiles.service';
+import {Profile} from '../../interface/profile';
+import {Observable} from 'rxjs';
+import {UserService} from '../../services/user.service';
 
 @Component({
   standalone: true,
@@ -22,6 +28,9 @@ import {CameraOverlayComponent} from '../camera-overlay/camera-overlay.component
     FormsModule,
     NgClass,
     CameraOverlayComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
@@ -33,32 +42,55 @@ export class ChatComponent implements AfterViewChecked{
 
   message: Message[] = [];
   selectedChatName: string | null = '';
+  chatid: number | null = null;
 
   token: string | null = '';
   text: string = '';
   photo: string = '';
   position: string = '';
   photos: { [key: string]: string } = {};
-
+  profile: Profile[] = [];
+  userID: string | null = '';
 
   constructor(
     private apiService: ApiService,
     private tokenService: TokenService,
     private messageService: MessagesService,
     private chatService: ChatService,
+    private profilesService: ProfilesService,
     private datePipe: DatePipe,
     private cameraService: CameraService,
+    private router: Router,
+    private userService: UserService,
+
 ) {
     this.token = this.tokenService.getToken();
     this.messageService.getMessages().subscribe((data: Message[]) => { this.message = data});
-    this.messageService.init(); // Ensure init is called
+    this.messageService.init();
     this.selectedChatName = this.chatService.getSelectedChatName();
     console.log(this.selectedChatName);
     this.photos = this.messageService.photos;
+    this.chatid = this.chatService.getSelectedChatId();
+    this.userID = this.userService.getUser();
 
     this.chatService.chatSelected.subscribe(chatid => {
       this.selectedChatName = this.chatService.getSelectedChatName();
     });
+
+    this.profilesService.loadProfiles();
+
+    this.profilesService.getProfiles().subscribe((data: Profile[]) => {
+      this.profile = data;
+      console.log(data);
+    });
+
+    setTimeout(() => this.dataRequest(), 2000); // Verzögerung von 2 Sekunden
+
+  }
+
+
+  dataRequest() {
+    console.log('Data request initiated', this.profile);
   }
 
   isCameraOverlayVisible: boolean = false;
@@ -130,4 +162,56 @@ export class ChatComponent implements AfterViewChecked{
 
     return this.datePipe.transform(parsedDate, 'dd.MM.yyyy, HH:mm:ss');
   }
+
+  leaveChat() {
+    if (this.token && this.chatid !== null) {
+      this.apiService.leaveChat(this.token, this.chatid).subscribe({
+        next: (res: any) => {
+          console.log('Left chat:', this.chatid);
+          console.log('Leave chat response:', res);
+        },
+        error: (err) => {
+          console.error('Leave chat failure:', err);
+        }
+      });
+    } else {
+      console.error('Token is null or chatid is undefined');
+    }
+  }
+
+  invite(hash: string) {
+    if (this.token && this.chatid !== null) {
+      console.log('Inviting profile:', hash);
+      this.apiService.invite(this.token, this.chatid, hash).subscribe({
+        next: (res: any) => {
+          console.log('Invite response:', res);
+        },
+        error: (err) => {
+          console.error('Fehler beim Einladen des Profils:', err);
+        }
+      });
+    } else {
+      console.error('Token ist null oder chatid ist undefined');
+    }
+  }
+
+
+  deleteChat() {
+    if (this.token && this.chatid !== null) {
+      this.apiService.deleteChat(this.token, this.chatid.toString()).subscribe({
+        next: async (res: any) => {
+          console.log('Deleted chat:', this.chatid);
+          console.log('Delete chat response:', res);
+          await this.router.navigate(['/home'], { replaceUrl: true });
+          window.location.reload();
+        },
+        error: (err) => {
+          console.error('Delete chat failure:', err);
+        }
+      });
+    } else {
+      console.error('Token is null or chatid is undefined');
+    }
+  }
+
 }

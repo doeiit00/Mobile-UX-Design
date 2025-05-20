@@ -1,5 +1,42 @@
 <div class="chat">
-  <div class="chat-header">{{ selectedChatName }}</div>
+    <div class="chat-header">
+      <div class="chat-name">{{ selectedChatName }}</div>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="more-button">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="profiles">
+          <mat-icon>person_add</mat-icon>
+          Person hinzufügen
+        </button>
+        <button mat-menu-item (click)="leaveChat()">
+          <mat-icon>not_interested</mat-icon>
+          Chat verlassen
+        </button>
+        <button mat-menu-item (click)="deleteChat()">
+          <mat-icon>delete</mat-icon>
+          Chat löschen
+        </button>
+      </mat-menu>
+
+      <mat-menu #profiles="matMenu">
+        @if (profile.length > 0) {
+          @for (profile of profile; track profile.hash) {
+            @if (profile.nickname !== 'Test' && profile.nickname !== 'test') {
+              <button mat-menu-item (click)="invite(profile.hash)">
+              <mat-icon>person_add</mat-icon>
+              {{ profile.nickname }}
+            </button>}
+
+          }
+        }
+      </mat-menu>
+
+
+
+    </div>
 
   <div class="chat-window" #chatWindow>
     <ul class="message-list">
@@ -8,7 +45,7 @@
           <div>
             @if (message.length > 0) {
               @for(message of message; track message.id) {
-                <div [ngClass]="{'message-incoming': message.usernick !== 'Dominik', 'message-outgoing': message.usernick === 'Dominik'}">
+                <div [ngClass]="{'message-incoming': message.userid !== userID, 'message-outgoing': message.userid === userID}">
                   <p>{{message.usernick}}</p>
                   <p>{{message.text}}</p>
                   @if (message.photoid) {

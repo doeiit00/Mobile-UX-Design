@@ -10,25 +10,43 @@ import {ChatService} from '../../services/chat.service';
 import {MatList, MatListItem} from '@angular/material/list';
 import { Chat } from '../../interface/chat';
 import {ChatComponent} from '../chat/chat.component';
+import {CreateChatComponent} from '../create-chat/create-chat.component';
+import {PopupInvitesComponent} from '../popup-invites/popup-invites.component';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent, CreateChatComponent, /*PopupInvitesComponent*/],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
-  router=inject(Router)
+  router = inject(Router)
   token: string | null = '';
   chats: any[] = [];
+  invite: any[] = [];
+
+  chatid: number | null = null;
 
 
-constructor(private apiService: ApiService, private tokenService: TokenService, public chatService: ChatService) {
-      this.token = this.tokenService.getToken();
-      this.chatService.getChats().subscribe((data: Chat[]) => { this.chats = data; });
-      this.chatService.init();
-    }
+  constructor(private apiService: ApiService, private tokenService: TokenService, public chatService: ChatService) {
+    this.token = this.tokenService.getToken();
+    this.chatService.getChats().subscribe((data: Chat[]) => {
+      this.chats = data;
+    });
+    this.chatService.init();
+    this.chatid = this.chatService.getSelectedChatId();
+    //this.getInvites();
+  }
+
+  // getInvites() {
+  //   if (this.token) {
+  //     this.apiService.getInvites(this.token).subscribe((data: any[]) => {
+  //       this.invite = data;
+  //     });
+  //   }
+  // }
+
 
   logout() {
     if (this.token) {
@@ -58,5 +76,27 @@ constructor(private apiService: ApiService, private tokenService: TokenService, 
         }
       );
     }
+  }
+
+  isPopupCreateChatVisible = false;
+
+  showPopupCreateChat() {
+    this.isPopupCreateChatVisible = true;
+    this.isPopupInviteVisible = false;
+  }
+
+  hidePopupCreateChat() {
+    this.isPopupCreateChatVisible = false;
+  }
+
+  isPopupInviteVisible = false;
+
+  showPopupInvites() {
+    this.isPopupInviteVisible = true;
+    this.isPopupCreateChatVisible = false;
+  }
+
+  hidePopupInvite() {
+    this.isPopupInviteVisible = false;
   }
 }

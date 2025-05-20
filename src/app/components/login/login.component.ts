@@ -4,6 +4,7 @@ import {TokenService} from '../../services/token.service';
 import {ApiService} from '../../services/api.service';
 import {FormsModule} from '@angular/forms';
 import {sha256} from 'crypto-hash';
+import {UserService} from '../../services/user.service';
 
 @Component({
   standalone: true,
@@ -17,10 +18,12 @@ export class LoginComponent {
   userID: string = '';
   password: string = '';
 
-  constructor(private apiService: ApiService, private tokenService: TokenService) {}
+  constructor(private apiService: ApiService, private tokenService: TokenService, private userService: UserService) {}
 
   login() {
     this.tokenService.clearToken();
+
+    this.userService.setUserID(this.userID);
 
     this.apiService.login(this.userID, this.password).subscribe({
       next: (res: any) => {
