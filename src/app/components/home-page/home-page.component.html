@@ -9,35 +9,32 @@
 </mat-toolbar>
 
 <mat-drawer-container class="example-container">
-
-    <div class="headline">
-        <p>Chats</p>
+  <div class="headline">
+    <p>Chats</p>
 <!--      <div (click)="showPopupInvites()" class="invites">-->
 <!--        <mat-icon>notifications_none</mat-icon>-->
 <!--      </div>-->
 <!--      @if(isPopupInviteVisible){<app-popup-invites (close)="hidePopupInvite()"/>}-->
-    </div>
+  </div>
 
-    <mat-list class="chat-list">
-      <div>
-        @if (chats.length > 0) {
-          @for(chat of chats; track chat.chatid) {
-            <mat-list-item routerLink='/chat/{{chat.chatid}}' (click)="this.chatService.selectChat(chat.chatid)">
-              <h3>{{chat.chatname}}</h3>
-            </mat-list-item>
-            }
-          } @else {
-          <h3>No chats found</h3>
+  <mat-list class="chat-list">
+    <div>
+      @if (chats.length > 0) {
+        @for (chat of chats; track chat.chatid) {
+          <mat-list-item routerLink='/chat/{{chat.chatid}}' (click)="this.chatService.selectChat(chat.chatid)">
+            <h3>{{ chat.chatname }}</h3>
+          </mat-list-item>
         }
-      </div>
-
-      <div (click)="showPopupCreateChat()" class="add-chat">
-        <svg height="30" width="30" viewBox="0 0 24 24">
-          <path stroke-width="2" stroke="currentColor" d="M4 12H20M12 4V20" fill="currentColor"/>
-        </svg>
-      </div>
-      @if(isPopupCreateChatVisible){<app-create-chat (close)="hidePopupCreateChat()"/>}
-    </mat-list>
-
-
+      } @else {
+        <h3>No chats found</h3>
+      }
+    </div>
+  
+    <div (click)="showPopupCreateChat()" class="add-chat">
+      <svg height="30" width="30" viewBox="0 0 24 24">
+        <path stroke-width="2" stroke="currentColor" d="M4 12H20M12 4V20" fill="currentColor"/>
+      </svg>
+    </div>
+    @if(isPopupCreateChatVisible){<app-create-chat (close)="hidePopupCreateChat()"/>}
+  </mat-list>
 </mat-drawer-container>
