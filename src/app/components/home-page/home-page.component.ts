@@ -16,7 +16,7 @@ import {PopupInvitesComponent} from '../popup-invites/popup-invites.component';
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent, CreateChatComponent, /*PopupInvitesComponent*/],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, /*ChatComponent,*/ CreateChatComponent, /*PopupInvitesComponent*/],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
