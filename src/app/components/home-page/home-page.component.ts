@@ -16,7 +16,7 @@ import {PopupInvitesComponent} from '../popup-invites/popup-invites.component';
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, ChatComponent, CreateChatComponent, /*PopupInvitesComponent*/],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, /*ChatComponent,*/ CreateChatComponent, /*PopupInvitesComponent*/],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -53,7 +53,9 @@ export class HomePageComponent {
       this.apiService.logout(this.token).subscribe(() => {
           console.log('Logged out with token:', this.token);
           this.tokenService.clearToken();
-          this.router.navigateByUrl("");
+          this.router.navigateByUrl("").then(() => {
+            window.location.reload(); // Seite neu laden
+          });
         },
         (error) => {
           this.tokenService.clearToken();

@@ -1,6 +1,10 @@
 <div class="chat">
     <div class="chat-header">
-      <div class="chat-name">{{ selectedChatName }}</div>
+      <div class="chat-name">
+        <button (click)="goBack()" mat-icon-button>
+            <mat-icon>arrow_back_ios_new</mat-icon>
+        </button>
+        {{ selectedChatName }}</div>
 
       <button mat-icon-button [matMenuTriggerFor]="menu" class="more-button">
         <mat-icon>more_vert</mat-icon>
@@ -33,9 +37,6 @@
           }
         }
       </mat-menu>
-
-
-
     </div>
 
   <div class="chat-window" #chatWindow>
@@ -46,14 +47,14 @@
             @if (message.length > 0) {
               @for(message of message; track message.id) {
                 <div [ngClass]="{'message-incoming': message.userid !== userID, 'message-outgoing': message.userid === userID}">
-                  <p>{{message.usernick}}</p>
+                  <p class="usernick">{{message.usernick}}</p>
                   <p>{{message.text}}</p>
                   @if (message.photoid) {
 
                     <img [src]="photos[message.id]" alt="Failed to Load Image" (error)="onImageError(message.id)" />
 
                   }
-                  <p>{{formatMyDate(message.time) || message.time}}</p>
+                  <p class="timestamp">{{formatMyDate(message.time) || message.time}}</p>
                 </div>
               }
             } @else {

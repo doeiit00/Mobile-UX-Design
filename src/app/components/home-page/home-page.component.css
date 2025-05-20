@@ -40,9 +40,12 @@ h3 {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chat-list{
+.chat-list {
   font-size: 18px;
-  height: calc(200vh - 64px);
+  max-height: calc(100vh - 64px); /* Maximale Höhe des Containers */
+  overflow-y: auto; /* Scrollen nur, wenn nötig */
+  margin-top: 0 !important; /* Erzwingt die Regel */
+  padding: 0 !important; /* Erzwingt die Regel */
 }
 
 mat-list-item {
@@ -58,7 +61,7 @@ mat-list-item h3 {
 }
 
 .add-chat {
-  position: absolute;
+  position: fixed; /* Ändert von absolute zu fixed */
   bottom: 1em;
   right: 1em;
   width: 3em;
@@ -70,8 +73,16 @@ mat-list-item h3 {
   justify-content: center;
   color: white;
   cursor: pointer;
+  z-index: 1000; /* Optional: Stellt sicher, dass es über anderen Elementen bleibt */
 }
 
-.headline{
-  align-content: center;
+.headline {
+  margin-bottom: 0 !important; /* Erzwingt die Regel */
+  padding: 0 !important; /* Erzwingt die Regel */
+  border-bottom: 1px solid #ccc;
+}
+.headline p {
+  font-weight: bold; /* Macht die Schrift fett */
+  font-size: 1.25rem; /* Erhöht die Schriftgröße */
+  margin: 0.75rem;
 }

@@ -1,4 +1,7 @@
 .chat {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   width: auto;
   background-color: #F1F0E8;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -16,8 +19,18 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+.chat-header .mat-icon {
+  color: #fff;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+}
+
 .chat-name {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .more-button {
@@ -25,9 +38,10 @@
 }
 
 .chat-window {
-  height: calc(100vh - 209px);
+  flex: 1 1 auto;
   overflow-y: scroll;
   background: #F1F0E8;
+  height: auto;
 }
 
 .message-list {
@@ -38,7 +52,7 @@
 
 .message-item {
   display: flex;
-  justify-content: flex-start; /* Default alignment for incoming messages */
+  justify-content: flex-start;
 }
 
 .message-list li {
@@ -47,37 +61,42 @@
 }
 
 .message-incoming, .message-outgoing {
-  max-width: 30%;
-  padding: 0.7rem;
-  font-size: 18px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  position: relative;
-  word-wrap: break-word; /* Textumbruch bei langen Wörtern */
-  overflow-wrap: break-word;
+  max-width: 70%;
+  padding: 0.5rem 0.8rem;
+  font-size: 15px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  margin-top: 6px;
 }
 
 .message-incoming img, .message-outgoing img {
-  max-width: 100%; /* Bild passt sich der Breite des Containers an */
-  height: auto; /* Beibehaltung des Seitenverhältnisses */
-  border-radius: 5px; /* Optional: Abgerundete Ecken */
-  margin-top: 5px; /* Abstand zum Text */
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 .message-incoming {
   background: #B3C8CF;
   margin-top: 10px;
+  align-self: flex-start;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.usernick {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.date {
+  font-style: italic;
 }
 
 .message-outgoing {
   background: #E5E1DA;
-  margin-top: 10px;
-  margin-left: auto; /* Verschiebt die Nachricht nach rechts */
-  max-width: 30%;
-  padding: 0.7rem;
-  font-size: 18px;
-  border-radius: 10px;
-  position: relative;
+  align-self: flex-end;
+  margin-left: auto;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
@@ -89,7 +108,7 @@
   border-radius: 5px;
   border-top: 1px solid #89A8B2;
   background: #89A8B2;
-  gap: 10px; /* Abstand zwischen den Elementen */
+  gap: 10px;
 }
 
 .message-input {
