@@ -3,12 +3,12 @@
   flex-direction: column;
   height: 100vh;
   width: auto;
-  background-color: #F1F0E8;
+  background-color: #DDE6ED;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .chat-header {
-  background-color: #89A8B2;
+  background-color: #9DB2BF;
   color: #fff;
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@
 .chat-window {
   flex: 1 1 auto;
   overflow-y: scroll;
-  background: #F1F0E8;
+  background: #DDE6ED;
   height: auto;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .message-incoming {
-  background: #B3C8CF;
+  background: #ffffff;
   margin-top: 10px;
   align-self: flex-start;
   word-wrap: break-word;
@@ -96,7 +96,7 @@
 }
 
 .message-outgoing {
-  background: #E5E1DA;
+  background: #9DB2BF;
   align-self: flex-end;
   margin-left: auto;
   word-wrap: break-word;
@@ -108,8 +108,8 @@
   align-items: center;
   padding: 10px;
   border-radius: 5px;
-  border-top: 1px solid #89A8B2;
-  background: #89A8B2;
+  border-top: 1px solid #9DB2BF;
+  background: #9DB2BF;
   gap: 10px;
 }
 

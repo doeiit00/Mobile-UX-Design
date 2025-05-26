@@ -1,10 +1,10 @@
 mat-toolbar{
-  background: #E5E1DA;
+  background: #9DB2BF;
 }
 
 .sidenav {
   border-radius: 0 !important;
-  background: #E5E1DA;
+  background: #DDE6ED;
 }
 
 h3 {
@@ -19,7 +19,7 @@ h3 {
 .example-container {
   width: auto;
   height: calc(100vh - 64px);
-  background: #F1F0E8;
+  background: #DDE6ED;
 }
 
 .search-bar-wrapper {

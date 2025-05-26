@@ -1,7 +1,7 @@
 .container {
-  width: 320px;
+  width: 65vw;
   border-radius: 0.75rem;
-  background-color: rgb(179, 200, 207);
+  background-color: rgb(157, 178, 191);
   color: rgba(243, 244, 246, 1);
   padding: 1rem;
 
@@ -39,8 +39,8 @@ input[type=password], select {
 
 input[type=submit] {
   width: 100%;
-  background-color: rgb(241, 240, 232);
-  color: rgb(137, 168, 178);
+  background-color: rgb(82, 109, 130);
+  color: rgb(221, 230, 237);
   padding: 14px 20px;
   margin: 10px 0;
   border: none;
