@@ -61,7 +61,7 @@ mat-list-item h3 {
 }
 
 .add-chat {
-  position: fixed; /* Ändert von absolute zu fixed */
+  position: fixed;
   bottom: 1em;
   right: 1em;
   width: 3em;
@@ -73,7 +73,7 @@ mat-list-item h3 {
   justify-content: center;
   color: white;
   cursor: pointer;
-  z-index: 1000; /* Optional: Stellt sicher, dass es über anderen Elementen bleibt */
+  z-index: 1000;
 }
 
 .headline {
@@ -85,4 +85,8 @@ mat-list-item h3 {
   font-weight: bold; /* Macht die Schrift fett */
   font-size: 1.25rem; /* Erhöht die Schriftgröße */
   margin: 0.75rem;
+}
+
+.deregistration{
+  color: #c62828;
 }
