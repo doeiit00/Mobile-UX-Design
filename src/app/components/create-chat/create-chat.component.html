@@ -1,0 +1,18 @@
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+
+    <button (click)="closePopup()" class="close">
+      <i class="material-icons">close</i>
+    </button>
+
+    <p>Create a New Chat</p>
+
+    <form class="newChatBox" (ngSubmit)="createChat()">
+      <input placeholder="New Chat Name" type="text" id="newChatInput" autocomplete="off" [(ngModel)]="text" name="text"/>
+      <button id="sendButton">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+
+  </div>
+</div>

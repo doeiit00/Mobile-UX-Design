@@ -1,0 +1,92 @@
+mat-toolbar{
+  background: #9DB2BF;
+}
+
+.sidenav {
+  border-radius: 0 !important;
+  background: #DDE6ED;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-container {
+  width: auto;
+  height: calc(100vh - 64px);
+  background: #DDE6ED;
+}
+
+.search-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 5%;
+}
+
+.search-box {
+  width: 15vw;
+  padding: 1rem;
+  border: 1px solid #F1F0E8 !important;
+  font-size: 18px;
+  font-weight: bold;
+  outline: none;
+  background-color: #F1F0E8;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-list {
+  font-size: 18px;
+  max-height: calc(100vh - 64px); /* Maximale Höhe des Containers */
+  overflow-y: auto; /* Scrollen nur, wenn nötig */
+  margin-top: 0 !important; /* Erzwingt die Regel */
+  padding: 0 !important; /* Erzwingt die Regel */
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+mat-list-item h3 {
+  margin: 10px;
+  font-size: 16px;
+}
+
+.add-chat {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  width: 3em;
+  height: 3em;
+  background: rgb(157, 178, 191);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.headline {
+  margin-bottom: 0 !important; /* Erzwingt die Regel */
+  padding: 0 !important; /* Erzwingt die Regel */
+  border-bottom: 1px solid #ccc;
+}
+.headline p {
+  font-weight: bold; /* Macht die Schrift fett */
+  font-size: 1.25rem; /* Erhöht die Schriftgröße */
+  margin: 0.75rem;
+}
+
+.deregistration{
+  color: #c62828;
+}

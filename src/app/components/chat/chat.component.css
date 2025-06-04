@@ -1,0 +1,159 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: auto;
+  background-color: #DDE6ED;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+  background-color: #9DB2BF;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px;
+  font-size: 24px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.chat-header .mat-icon {
+  color: #fff;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+}
+
+.chat-name {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.more-button {
+  margin-left: auto;
+}
+
+.chat-window {
+  flex: 1 1 auto;
+  overflow-y: scroll;
+  background: #DDE6ED;
+  height: auto;
+}
+
+.message-list {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+}
+
+.message-item {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-list li {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-incoming, .message-outgoing {
+  max-width: 70%;
+  padding: 0.5rem 0.8rem;
+  font-size: 15px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+.message-incoming img, .message-outgoing img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.message-incoming {
+  background: #ffffff;
+  margin-top: 10px;
+  align-self: flex-start;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.usernick {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.timestamp {
+  font-style: italic;
+  font-size: 0.7em;
+  margin-top: 0.2em;
+}
+
+.message-outgoing {
+  background: #9DB2BF;
+  align-self: flex-end;
+  margin-left: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  border-top: 1px solid #9DB2BF;
+  background: #9DB2BF;
+  gap: 10px;
+}
+
+.message-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+button.mat-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-button {
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  color: rgb(0, 0, 0);
+}
+
+.photo-added {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.added-photo {
+  width: 100%;
+  max-width: 200px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.leaveChat{
+  flex: 1 1 auto;
+}

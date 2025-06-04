@@ -1,0 +1,26 @@
+<div class="chatTitle">Nexus
+  <p class="subTitle">Your Campus. Your Chat.</p>
+</div>
+  <div class="container">
+    <p class="title">Login</p>
+    <form class="form" (ngSubmit)="login()">
+      <label for="userID">UserID</label><br>
+      <input type="text" id="userID" name="userID" [(ngModel)]="userID"><br>
+
+      <label for="password">Password</label><br>
+      <input type="password" id="password" name="password" [(ngModel)]="password"><br>
+
+      <input type="submit" value="Sign in">
+
+    </form>
+    <p class="signup">Don't have an account?
+      <a routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Sign up</a>
+    </p>
+  </div>
+<div class="copyright">
+  <p>© 2025 Nexus. All rights reserved.</p>
+  <p>Developed by Dominik Eiwen and Tamara Mößner as part of the coursework at Esslingen University.</p>
+  <p>Unauthorized use or distribution is prohibited.</p>
+</div>
+
+<router-outlet />
