@@ -1,0 +1,14 @@
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+
+    <button class="close" (click)="closePopup()">
+      <i class="material-icons">close</i>
+    </button>
+    <p>
+      Bist du sicher, dass du dein Konto wirklich löschen möchtest?
+      Diese Aktion ist <strong>nicht rückgängig</strong> zu machen.
+    </p>
+    <button class="deregister-button" (click)="deregister()">Konto löschen</button>
+
+  </div>
+</div>

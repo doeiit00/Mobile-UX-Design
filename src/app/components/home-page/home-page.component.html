@@ -7,9 +7,11 @@
 
   <span class="example-spacer"></span>
 
-  <button mat-icon-button>
-    <mat-icon (click)="deregister()">person_remove</mat-icon>
+  <button mat-icon-button class="deregistration">
+    <mat-icon (click)="showPopupDeregistration()">person_remove</mat-icon>
   </button>
+  @if (isPopupDeregistrationVisible){<app-popup-deregistration (close)="hidePopupDeregistration()" />}
+
   <button mat-icon-button>
     <mat-icon (click)="logout()">logout</mat-icon>
   </button>
