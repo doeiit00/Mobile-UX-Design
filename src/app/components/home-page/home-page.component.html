@@ -1,4 +1,10 @@
 <mat-toolbar class="toolbar">
+
+  <button mat-icon-button class="helper">
+    <mat-icon (click)="showPopupHelper()">info_outline</mat-icon>
+  </button>
+  @if (isPopupHelperVisible) {<app-popup-helper (close)="hidePopupHelper()"/>}
+
   <span class="example-spacer"></span>
 
   <button mat-icon-button class="deregistration">

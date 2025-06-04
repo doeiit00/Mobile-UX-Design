@@ -1,0 +1,48 @@
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+
+    <button (click)="closePopup()" class="close">
+      <i class="material-icons">close</i>
+    </button>
+
+    <h2>Hilfe & Symbole</h2>
+    <p>Hier findest du eine Übersicht aller verwendeten Icons:</p>
+
+    <div class="icon-row">
+      <mat-icon>person_remove</mat-icon>
+      <span>Konto löschen</span>
+    </div>
+    <div class="icon-row">
+      <mat-icon>logout</mat-icon>
+      <span>Abmelden</span>
+    </div>
+    <div class="icon-row">
+      <mat-icon>add</mat-icon>
+      <span>Neuen Chat erstellen</span>
+    </div>
+    <div class="icon-row">
+      <mat-icon>info_outline</mat-icon>
+      <span>Hilfe</span>
+    </div>
+
+    <p>Innerhalb von Chats in den Optionen</p>
+
+    <div class="icon-row">
+      <mat-icon>camera_alt</mat-icon>
+      <span>Öffnen der Kamera</span>
+    </div>
+    <div class="icon-row">
+      <mat-icon>person_add</mat-icon>
+      <span>Person Hinzufügen</span>
+    </div>
+    <div class="icon-row">
+      <mat-icon>not_interested</mat-icon>
+      <span>Chat Verlassen</span>
+    </div>
+    <div class="icon-row">
+      <mat-icon>delete</mat-icon>
+      <span>Chat Löschen</span>
+    </div>
+
+  </div>
+</div>
