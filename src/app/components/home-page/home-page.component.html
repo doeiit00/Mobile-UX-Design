@@ -1,7 +1,7 @@
 <mat-toolbar class="toolbar">
   <span class="example-spacer"></span>
 
-  <button mat-icon-button>
+  <button mat-icon-button class="deregistration">
     <mat-icon (click)="showPopupDeregistration()">person_remove</mat-icon>
   </button>
   @if (isPopupDeregistrationVisible){<app-popup-deregistration (close)="hidePopupDeregistration()" />}

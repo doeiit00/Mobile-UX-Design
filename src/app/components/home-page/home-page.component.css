@@ -88,6 +88,5 @@ mat-list-item h3 {
 }
 
 .deregistration{
-  position: fixed;
-  z-index: 1000;
+  color: #c62828;
 }
