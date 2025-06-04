@@ -12,11 +12,12 @@ import { Chat } from '../../interface/chat';
 import {ChatComponent} from '../chat/chat.component';
 import {CreateChatComponent} from '../create-chat/create-chat.component';
 import {PopupInvitesComponent} from '../popup-invites/popup-invites.component';
+import {PopupHelperComponent} from '../popup-helper/popup-helper.component';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, /*ChatComponent,*/ CreateChatComponent, /*PopupInvitesComponent*/],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, /*ChatComponent,*/ CreateChatComponent, PopupHelperComponent, /*PopupInvitesComponent*/],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -84,7 +85,6 @@ export class HomePageComponent {
 
   showPopupCreateChat() {
     this.isPopupCreateChatVisible = true;
-    this.isPopupInviteVisible = false;
   }
 
   hidePopupCreateChat() {
@@ -95,10 +95,20 @@ export class HomePageComponent {
 
   showPopupInvites() {
     this.isPopupInviteVisible = true;
-    this.isPopupCreateChatVisible = false;
   }
 
   hidePopupInvite() {
     this.isPopupInviteVisible = false;
   }
+
+  isPopupHelperVisible = false;
+
+  showPopupHelper() {
+    this.isPopupHelperVisible = true;
+  }
+
+  hidePopupHelper() {
+    this.isPopupHelperVisible = false;
+  }
+
 }
