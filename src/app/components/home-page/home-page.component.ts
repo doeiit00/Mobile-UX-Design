@@ -12,11 +12,12 @@ import { Chat } from '../../interface/chat';
 import {ChatComponent} from '../chat/chat.component';
 import {CreateChatComponent} from '../create-chat/create-chat.component';
 import {PopupInvitesComponent} from '../popup-invites/popup-invites.component';
+import {PopupDeregistrationComponent} from '../popup-deregistration/popup-deregistration.component';
 
 @Component({
   standalone: true,
   selector: 'app-landing-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, /*ChatComponent,*/ CreateChatComponent, /*PopupInvitesComponent*/],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatList, MatListItem, RouterLink, /*ChatComponent,*/ CreateChatComponent, PopupDeregistrationComponent, /*PopupInvitesComponent*/],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -65,21 +66,6 @@ export class HomePageComponent {
     }
   }
 
-  deregister() {
-    if (this.token) {
-      this.apiService.deregister(this.token).subscribe(() => {
-          console.log('Deregistered with token:', this.token);
-          this.tokenService.clearToken();
-          this.router.navigateByUrl("");
-        },
-        (error) => {
-          this.tokenService.clearToken();
-          console.error('Error deregistering:', error);
-        }
-      );
-    }
-  }
-
   isPopupCreateChatVisible = false;
 
   showPopupCreateChat() {
@@ -101,4 +87,16 @@ export class HomePageComponent {
   hidePopupInvite() {
     this.isPopupInviteVisible = false;
   }
+
+  isPopupDeregistrationVisible = false;
+
+  showPopupDeregistration() {
+    this.isPopupDeregistrationVisible = true;
+    this.isPopupCreateChatVisible = false;
+  }
+
+  hidePopupDeregistration() {
+    this.isPopupDeregistrationVisible = false;
+  }
+
 }

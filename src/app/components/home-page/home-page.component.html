@@ -1,8 +1,11 @@
 <mat-toolbar class="toolbar">
   <span class="example-spacer"></span>
+
   <button mat-icon-button>
-    <mat-icon (click)="deregister()">person_remove</mat-icon>
+    <mat-icon (click)="showPopupDeregistration()">person_remove</mat-icon>
   </button>
+  @if (isPopupDeregistrationVisible){<app-popup-deregistration (close)="hidePopupDeregistration()" />}
+
   <button mat-icon-button>
     <mat-icon (click)="logout()">logout</mat-icon>
   </button>
@@ -29,7 +32,7 @@
         <h3>No chats found</h3>
       }
     </div>
-  
+
     <div (click)="showPopupCreateChat()" class="add-chat">
       <svg height="30" width="30" viewBox="0 0 24 24">
         <path stroke-width="2" stroke="currentColor" d="M4 12H20M12 4V20" fill="currentColor"/>
