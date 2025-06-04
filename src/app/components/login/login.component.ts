@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {Router, RouterLink, RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {TokenService} from '../../services/token.service';
 import {ApiService} from '../../services/api.service';
 import {FormsModule} from '@angular/forms';
@@ -9,7 +9,7 @@ import {UserService} from '../../services/user.service';
 @Component({
   standalone: true,
   selector: 'app-login',
-  imports:[FormsModule, RouterOutlet, RouterLink],
+  imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
