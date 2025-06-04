@@ -7,9 +7,7 @@ import {Router} from '@angular/router';
 @Component({
   standalone:true,
   selector: 'app-popup-deregistration',
-  imports: [
-    MatIcon,
-  ],
+  imports: [],
   templateUrl: './popup-deregistration.component.html',
   styleUrl: './popup-deregistration.component.css'
 })
